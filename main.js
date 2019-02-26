@@ -36,12 +36,6 @@ var legend = d3.legendColor()
 svg.select(".legendThreshold")
  .call(legend);
 
-// Load external data and boot
-d3.queue()
- .defer(d3.json, "world-110m.geojson")
- .defer(d3.csv, "hfi_cc_2018.csv", function(d) { data.set(d.ISO_code, +d.pf_ss_disappearances_disap); })
- .await(ready);
-
 
 //BUTTONS
 var buttonTitles = ["pf_ss_homicide", 'pf_ss_disappearances_disap'];
@@ -68,7 +62,7 @@ function updateMap(selectedOption) {
     
             // Load external data and boot
             d3.queue()
-            .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
+            .defer(d3.json, "world-110m.geojson")
             .defer(d3.csv, "hfi_cc_2018.csv", function(d) { 
                 data.set(d.ISO_code, +d[selectedOption]); })
             .await(ready);
