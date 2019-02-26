@@ -55,7 +55,16 @@ function ready(error, topo) {
          // Pull data for this country
          d.pf_ss_disappearances_disap = data.get(d.id) || 0;
          // Set the color
-         return colorScale(d.pf_ss_disappearances_disap);
+         return colorScale(d.pf_ss_disappearances_disap)
      })
+     .style("fill", function (d){
+        // Pull data for this country
+        d.pf_ss_disappearances_disap = data.get(d.id) || 0;
+        // Set the color
+        if(d.pf_ss_disappearances_disap == 10) return "url(#fireGradient)"
+        else if(d.pf_ss_disappearances_disap == 0) return "url(#circles-2)";
+
+    })
+
      .attr("d", path);
 }
