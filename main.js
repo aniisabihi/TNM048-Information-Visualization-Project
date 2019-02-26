@@ -16,7 +16,7 @@ var data = d3.map();
 var colorScheme = d3.schemeReds[6];
 colorScheme.unshift("#eee")
 var colorScale = d3.scaleThreshold()
- .domain([1, 6, 11, 26, 101, 1001])
+ .domain([1, 2, 4, 6, 8, 10])
  .range(colorScheme);
 
 // Legend
@@ -27,8 +27,8 @@ g.append("text")
  .attr("class", "caption")
  .attr("x", 0)
  .attr("y", -6)
- .text("Students");
-var labels = ['0', '1-5', '6-10', '11-25', '26-100', '101-1000', '> 1000'];
+ .text("Homocide");
+var labels = ['0-1', '2-3', '4-5', '5-6', '7-8', '8-9', '10',];
 var legend = d3.legendColor()
  .labels(function (d) { return labels[d.i]; })
  .shapePadding(4)
@@ -39,7 +39,7 @@ svg.select(".legendThreshold")
 // Load external data and boot
 d3.queue()
  .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
- .defer(d3.csv, "mooc-countries.csv", function(d) { data.set(d.code, +d.total); })
+ .defer(d3.csv, "hfi_cc_2018.csv", function(d) { data.set(d.ISO_code, +d.pf_ss_disappearances_disap); })
  .await(ready);
 
 function ready(error, topo) {
@@ -53,9 +53,9 @@ function ready(error, topo) {
      .enter().append("path")
      .attr("fill", function (d){
          // Pull data for this country
-         d.total = data.get(d.id) || 0;
+         d.pf_ss_disappearances_disap = data.get(d.id) || 0;
          // Set the color
-         return colorScale(d.total);
+         return colorScale(d.pf_ss_disappearances_disap);
      })
      .attr("d", path);
 }
