@@ -38,7 +38,7 @@ svg.select(".legendThreshold")
 
 // Load external data and boot
 d3.queue()
- .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
+ .defer(d3.json, "world-110m.geojson")
  .defer(d3.csv, "hfi_cc_2018.csv", function(d) { data.set(d.ISO_code, +d.pf_ss_disappearances_disap); })
  .await(ready);
 
@@ -59,3 +59,20 @@ function ready(error, topo) {
      })
      .attr("d", path);
 }
+
+ this.tooltip = function(d) {
+     //Helper function for including information tool_tip
+     // Defining tooltip for hovering points
+     var tooltip = d3.select("#tooltip")
+     tooltip
+         .select("#country")
+         .text("Country: " + d.properties.countries)
+
+     tooltip
+         .select("#region")
+         .text("Region: " + d.properties.region)
+
+     tooltip
+         .select("#desapperancess")
+         .text("Disappearances: " + d.properties.pf_ss_disappearances_disap)
+ }
