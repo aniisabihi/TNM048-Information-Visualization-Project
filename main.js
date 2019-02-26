@@ -54,7 +54,6 @@ dropdownButton // Add a button
   .attr("value", function (d) { return d; }) // corresponding value returned by the button
 
 
-
 // A function that update the color of the circle
 function updateMap(selectedOption) {
 
@@ -63,7 +62,7 @@ function updateMap(selectedOption) {
     
             // Load external data and boot
             d3.queue()
-            .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
+            .defer(d3.json, "world-110m.geojson")
             .defer(d3.csv, "hfi_cc_2018.csv", function(d) { 
                 data.set(d.ISO_code, +d[selectedOption]); })
             .await(ready);
