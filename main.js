@@ -84,6 +84,14 @@ function updateMap(selectedOption) {
                     // Set the color
                     return colorScale(d.selectedOption);
                 })
+                .style("fill", function (d){
+                    // Pull data for this country
+                    d.selectedOption = data.get(d.id) || 0;
+                    // Set the color
+                    if(d.selectedOption == 10) return "url(#fireGradient)"
+                    else if(d.selectedOption == 0) return "url(#circles-2)";
+            
+                })
                 .attr("d", path);
             }
 

@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8">
+    <title>infovis</title>
 
 <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
         <div id="UI">
-        <svg width="960" height="600"></svg>
+            <svg width="960" height="600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1">
+            <defs>
+              <pattern id="circles-2" patternUnits="userSpaceOnUse" width="10" height="10">
+                <image
+                  xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScgLz4KICA8Y2lyY2xlIGN4PScxLjUnIGN5PScxLjUnIHI9JzEuNScgZmlsbD0nYmxhY2snLz4KPC9zdmc+Cg=="
+                  x="0" y="0" width="10" height="10"> </image>
+              </pattern>
+              <linearGradient id="fireGradient" gradientTransform="rotate(90)">
+                <stop offset="20%" stop-color="gold" />
+                <stop offset="90%" stop-color="red" />
+              </linearGradient>
+            </defs>
+          </svg>
       </div>
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
@@ -13,32 +29,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
         <script src="main.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-
-<body>
-
-  <svg width="960" height="600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
-      <defs>
-          <pattern id="circles-2" patternUnits="userSpaceOnUse" width="10" height="10">
-            <image
-              xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScgLz4KICA8Y2lyY2xlIGN4PScxLjUnIGN5PScxLjUnIHI9JzEuNScgZmlsbD0nYmxhY2snLz4KPC9zdmc+Cg=="
-              x="0" y="0" width="10" height="10"> </image>
-          </pattern>
-          <linearGradient id="fireGradient" gradientTransform="rotate(90)">
-              <stop offset="20%" stop-color="gold" />
-              <stop offset="90%" stop-color="red" />
-            </linearGradient>
-        </defs>
-  </svg>
-  <script src="https://d3js.org/d3.v4.min.js"></script>
-  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-  <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
-
-  <script src="main.js"></script>
-
-
-</body>
-
+  
+  </body>
 </html>
