@@ -1,7 +1,5 @@
  import {svg, path, data, colorScale, g} from './mapSetup.js';
 
-
-
 //BUTTONS
 var buttonTitles = ["pf_ss_homicide", 'pf_ss_disappearances_disap'];
 
@@ -18,7 +16,6 @@ dropdownButton // Add a button
   .text(function (d) { return d; }) // text showed in the menu
   .attr("value", function (d) { return d; }) // corresponding value returned by the button
 
-
 // A function that update the color of the circle
 function updateMap(selectedOption) {
         console.log("updating to :" + selectedOption);    
@@ -32,7 +29,6 @@ function updateMap(selectedOption) {
             function ready(error, topo) {
             if (error) throw error;
 
-                
             // Draw the map
             svg.append("g")
                 .attr("class", "countries")
@@ -55,15 +51,42 @@ function updateMap(selectedOption) {
                 })
                 .attr("d", path);
             }
-
 }
 
 // When the button is changed, run the updateChart function
 dropdownButton.on("change", function(d) {
-
     // recover the option that has been chosen
     var selectedOption = d3.select(this).property("value")
 
     // run the updateChart function with this selected option
     updateMap(selectedOption)
 })
+
+ this.tooltip = function(d) {
+     //Helper function for including information tool_tip
+     // Defining tooltip for hovering points
+     var tooltip = d3.select("#tooltip")
+     tooltip
+         .select("#countries")
+         .text("Country: " + d.countries)
+
+     tooltip
+         .select("#value")
+         .text("Value: " + d.selectedOption)
+ }
+
+// HOVER FUNCTION
+ $("path").hover(function(e) {
+     tooltip(e);
+     $('#info-box').css('display','block');
+     $('#info-box').html($(this).data('info'));
+ });
+
+ $("path").mouseleave(function(e) {
+     $('#info-box').css('display','none');
+ });
+
+ $(document).mousemove(function(e) {
+     $('#info-box').css('top',e.pageY-$('#info-box').height()-30);
+     $('#info-box').css('left',e.pageX-($('#info-box').width())/2);
+ }).mouseover();
