@@ -1,3 +1,13 @@
+#UI1{
+    margin-top: 50px;
+}
+
+#UI2{
+    margin-top: 50px;
+    height:400px;
+    overflow-y: scroll;
+}
+
 .countries {
     fill: none;
     stroke: #fff;
