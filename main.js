@@ -85,16 +85,21 @@ function ready(error, topo) {
         .attr("fill", function (d){
             // Pull data for this country
             d.selectedOption = data.get(d.id) || 0;
+
+            let fillGradient = document.getElementById("firegradient-color-1");
+            console.log(fillGradient);
+
+            fillGradient.setAttribute("stop-color", colorScale(d.selectedOption));
             // Set the color
-            return colorScale(d.selectedOption);
+            return "url(#firegradient)";
         })
-        //.style("fill", function (d){
+        /*.style("fill", function (d){
             // Pull data for this country
            // d.selectedOption = data.get(d.id) || 0;
             // Set the color
           //  if(d.selectedOption == 10) return "url(#fireGradient)"
           //  else if(d.selectedOption == 0) return "url(#circles-2)";
 
-        //})
+        })*/
         .attr("d", path);
 }
