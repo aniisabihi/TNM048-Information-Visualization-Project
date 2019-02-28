@@ -51,7 +51,7 @@ function InitalLoadAndDraw(selectedOption){
                         console.log("updating to :" + selectedOption);
 
                         // When the button is changed, redraw the map according to selected option
-                       LoadAndDraw(selectedOption)
+                        LoadAndDraw(selectedOption)
                     })
 
                 gotLines = true;
@@ -98,5 +98,3 @@ function ready(error, topo) {
         })
         .attr("d", path);
 }
-
-
