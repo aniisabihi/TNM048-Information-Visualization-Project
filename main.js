@@ -1,7 +1,5 @@
  import {svg, path, data, colorScale, g} from './mapSetup.js';
 
-
-
 //BUTTONS
 var buttonTitles = ["pf_ss_homicide", 'pf_ss_disappearances_disap'];
 
