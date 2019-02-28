@@ -68,7 +68,7 @@ dropdownButton.on("change", function(d) {
      var tooltip = d3.select("#tooltip")
      tooltip
          .select("#countries")
-         .text("Country: " + d.countries)
+         .text("Country: " + d.properties.name)
 
      tooltip
          .select("#value")
@@ -77,7 +77,7 @@ dropdownButton.on("change", function(d) {
 
 // HOVER FUNCTION
  $("path").hover(function(e) {
-     tooltip(e);
+     $('#myTooltip').tooltip();
      $('#info-box').css('display','block');
      $('#info-box').html($(this).data('info'));
  });
