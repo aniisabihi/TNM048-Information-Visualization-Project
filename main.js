@@ -1,4 +1,5 @@
-import {svg, path, data, colorScale, g} from './mapSetup.js';
+import {svg, path, data, dataSetSecondary} from './mapSetup.js';
+import{generateFillGraphics} from './fillPatterns.js';
 
 
 //BUTTONS LIST
@@ -9,6 +10,8 @@ let listButton = d3.select("#UI2")
 //On application start
 InitalLoadAndDraw("pf_ss_disappearances_disap");
 
+//Secondary Data set option (temporary - ska väljas)
+const selectedOptionSecondary = "pf_ss_disappearances_fatalities";
 
 //Draw map from data on start, create buttontitles
 function InitalLoadAndDraw(selectedOption){
@@ -20,7 +23,7 @@ function InitalLoadAndDraw(selectedOption){
         .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
         .defer(d3.csv, "hfi_cc_2018.csv", function(d) {
             data.set(d.ISO_code, +d[selectedOption]);
-
+            dataSetSecondary.set(d.ISO_code, +d[selectedOptionSecondary]);
             //get the headers aka categories to add to buttons in gui, only once
             if(!gotLines){
 
@@ -73,9 +76,14 @@ function LoadAndDraw(selectedOption){
 
 }
 
+
+
 function ready(error, topo) {
     if (error) throw error;
 
+    //second data set
+    
+    
     // Draw the map
     svg.append("g")
         .attr("class", "countries")
@@ -83,23 +91,8 @@ function ready(error, topo) {
         .data(topo.features)
         .enter().append("path")
         .attr("fill", function (d){
-            // Pull data for this country
-            d.selectedOption = data.get(d.id) || 0;
-
-            let fillGradient = document.getElementById("firegradient-color-1");
-            console.log(fillGradient);
-
-            fillGradient.setAttribute("stop-color", colorScale(d.selectedOption));
             // Set the color
-            return "url(#firegradient)";
+            return generateFillGraphics(d.id);
         })
-        /*.style("fill", function (d){
-            // Pull data for this country
-           // d.selectedOption = data.get(d.id) || 0;
-            // Set the color
-          //  if(d.selectedOption == 10) return "url(#fireGradient)"
-          //  else if(d.selectedOption == 0) return "url(#circles-2)";
-
-        })*/
         .attr("d", path);
 }
