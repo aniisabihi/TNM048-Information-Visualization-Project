@@ -1,4 +1,5 @@
-import {svg, path, data, colorScale, g} from './mapSetup.js';
+import {svg, path, data, dataSetSecondary} from './mapSetup.js';
+import{generateFillGraphics} from './fillPatterns.js';
 
 
 //BUTTONS LIST
@@ -9,6 +10,8 @@ let listButton = d3.select("#UI2")
 //On application start
 InitalLoadAndDraw("pf_ss_disappearances_disap");
 
+//Secondary Data set option (temporary - ska väljas)
+const selectedOptionSecondary = "pf_ss_disappearances_fatalities";
 
 //Draw map from data on start, create buttontitles
 function InitalLoadAndDraw(selectedOption){
@@ -20,7 +23,7 @@ function InitalLoadAndDraw(selectedOption){
         .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
         .defer(d3.csv, "hfi_cc_2018.csv", function(d) {
             data.set(d.ISO_code, +d[selectedOption]);
-
+            dataSetSecondary.set(d.ISO_code, +d[selectedOptionSecondary]);
             //get the headers aka categories to add to buttons in gui, only once
             if(!gotLines){
 
@@ -73,9 +76,14 @@ function LoadAndDraw(selectedOption){
 
 }
 
+
+
 function ready(error, topo) {
     if (error) throw error;
 
+    //second data set
+    
+    
     // Draw the map
     svg.append("g")
         .attr("class", "countries")
@@ -84,54 +92,7 @@ function ready(error, topo) {
         .enter().append("path")
         .attr("fill", function (d){
             // Set the color
-            return generateFillGraphics(data.get(d.id) || 0);
+            return generateFillGraphics(d.id);
         })
         .attr("d", path);
 }
-
-function generateFillGraphics(dataId){
-
-    let mapSvg = $('svg')[0];
-    //console.log(mapSvg);
-    let baseColor = colorScale(dataId);
-
-    // Set the color
-    //return 'url(#firegradient)';
-    return createGradient(mapSvg, baseColor, dataId);
-}
-
-function createGradient(svg, baseColor, mapId){
-    let svgNS = svg.namespaceURI;
-    let grad  = document.createElementNS(svgNS,'linearGradient');
-    let id = 'gradient-' + mapId;
-    grad.setAttribute('id',id);
-    grad.setAttribute('gradientTransform', 'rotate(90)');  
-
-    let stops = [
-        {offset:'20%', 'stop-color': baseColor},
-        {offset:'90%','stop-color':'blue'}
-      ]
-    for (var i=0;i<stops.length;i++){
-      let attrs = stops[i];
-      let stop = document.createElementNS(svgNS,'stop');
-      for (var attr in attrs){
-        if (attrs.hasOwnProperty(attr)) stop.setAttribute(attr,attrs[attr]);
-      }
-      grad.appendChild(stop);
-    }
-
-    let animAttrs = {   attributeName: 'x1', dur: '1000ms', 
-                        from: '90%', to: '0%', repeatCount: 'indefinite' }; 
-
-    let anim = document.createElementNS(svgNS,'animate');
-    for (var attr in animAttrs){
-        if (animAttrs.hasOwnProperty(attr)) anim.setAttribute(attr,animAttrs[attr]);
-      }
-    grad.appendChild(anim);
-  
-    let defs = svg.querySelector('defs') ||
-        svg.insertBefore( document.createElementNS(svgNS,'defs'), svg.firstChild);
-    defs.appendChild(grad);
-
-    return 'url(#' + id + ')'; 
-  }

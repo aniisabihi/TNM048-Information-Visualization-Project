@@ -1,4 +1,4 @@
-export {svg, path, data, colorScale, g}
+export {svg, path, data, colorScale, colorScaleSecondary, dataSetSecondary}
 
 // The svg
 let svg = d3.select("svg"),
@@ -19,6 +19,13 @@ colorScheme.unshift("#eee")
 let colorScale = d3.scaleThreshold()
     .domain([0, 2, 4, 6, 8, 10])
     .range(colorScheme);
+
+let dataSetSecondary = d3.map();
+let colorSchemeSecondary = d3.schemeBlues[6];
+colorSchemeSecondary.unshift("#eee")
+let colorScaleSecondary = d3.scaleThreshold()
+    .domain([0, 2, 4, 6, 8, 10])
+    .range(colorSchemeSecondary);
 
 // Legend
 let g = svg.append("g")
