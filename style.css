@@ -1,13 +1,18 @@
 #UI1{
     margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 #UI2{
-    margin-top: 50px;
     height:500px;
     overflow-y: scroll;
 }
-
+h2{
+    color: green;
+}
+.card-header{
+    background-color: lightgray;
+}
 .countries {
     fill: none;
     stroke: #fff;
