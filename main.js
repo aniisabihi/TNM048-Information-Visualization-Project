@@ -83,23 +83,55 @@ function ready(error, topo) {
         .data(topo.features)
         .enter().append("path")
         .attr("fill", function (d){
-            // Pull data for this country
-            d.selectedOption = data.get(d.id) || 0;
-
-            let fillGradient = document.getElementById("firegradient-color-1");
-            console.log(fillGradient);
-
-            fillGradient.setAttribute("stop-color", colorScale(d.selectedOption));
             // Set the color
-            return "url(#firegradient)";
+            return generateFillGraphics(data.get(d.id) || 0);
         })
-        /*.style("fill", function (d){
-            // Pull data for this country
-            d.selectedOption = data.get(d.id) || 0;
-            // Set the color
-            if(d.selectedOption == 10) return "url(#fireGradient)"
-            else if(d.selectedOption == 0) return "url(#circles-2)";
-
-        })*/
         .attr("d", path);
 }
+
+function generateFillGraphics(dataId){
+
+    let mapSvg = $('svg')[0];
+    //console.log(mapSvg);
+    let baseColor = colorScale(dataId);
+
+    // Set the color
+    //return 'url(#firegradient)';
+    return createGradient(mapSvg, baseColor, dataId);
+}
+
+function createGradient(svg, baseColor, mapId){
+    let svgNS = svg.namespaceURI;
+    let grad  = document.createElementNS(svgNS,'linearGradient');
+    let id = 'gradient-' + mapId;
+    grad.setAttribute('id',id);
+    grad.setAttribute('gradientTransform', 'rotate(90)');  
+
+    let stops = [
+        {offset:'20%', 'stop-color': baseColor},
+        {offset:'90%','stop-color':'blue'}
+      ]
+    for (var i=0;i<stops.length;i++){
+      let attrs = stops[i];
+      let stop = document.createElementNS(svgNS,'stop');
+      for (var attr in attrs){
+        if (attrs.hasOwnProperty(attr)) stop.setAttribute(attr,attrs[attr]);
+      }
+      grad.appendChild(stop);
+    }
+
+    let animAttrs = {   attributeName: 'x1', dur: '1000ms', 
+                        from: '90%', to: '0%', repeatCount: 'indefinite' }; 
+
+    let anim = document.createElementNS(svgNS,'animate');
+    for (var attr in animAttrs){
+        if (animAttrs.hasOwnProperty(attr)) anim.setAttribute(attr,animAttrs[attr]);
+      }
+    grad.appendChild(anim);
+  
+    let defs = svg.querySelector('defs') ||
+        svg.insertBefore( document.createElementNS(svgNS,'defs'), svg.firstChild);
+    defs.appendChild(grad);
+
+    return 'url(#' + id + ')'; 
+  }
