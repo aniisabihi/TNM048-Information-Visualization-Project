@@ -23,6 +23,7 @@ function InitalLoadAndDraw(selectedOption){
 
             //get the headers aka categories to add to buttons in gui, only once
             if(!gotLines){
+
                 var dataHeaders = d3.keys(d);
 
                 //store header titles related to index in buttonTitles
@@ -57,33 +58,6 @@ function InitalLoadAndDraw(selectedOption){
             }
         }).await(ready);
 
-
-    function ready(error, topo) {
-        if (error) throw error;
-
-
-        // Draw the map
-        svg.append("g")
-            .attr("class", "countries")
-            .selectAll("path")
-            .data(topo.features)
-            .enter().append("path")
-            .attr("fill", function (d){
-                // Pull data for this country
-                d.selectedOption = data.get(d.id) || 0;
-                // Set the color
-                return colorScale(d.selectedOption);
-            })
-            .style("fill", function (d){
-                // Pull data for this country
-                d.selectedOption = data.get(d.id) || 0;
-                // Set the color
-                if(d.selectedOption == 10) return "url(#fireGradient)"
-                else if(d.selectedOption == 0) return "url(#circles-2)";
-
-            })
-            .attr("d", path);
-    }
 }
 
 
@@ -97,31 +71,30 @@ function LoadAndDraw(selectedOption){
             data.set(d.ISO_code, +d[selectedOption]); })
         .await(ready);
 
-    function ready(error, topo) {
-        if (error) throw error;
+}
 
+function ready(error, topo) {
+    if (error) throw error;
 
-        // Draw the map
-        svg.append("g")
-            .attr("class", "countries")
-            .selectAll("path")
-            .data(topo.features)
-            .enter().append("path")
-            .attr("fill", function (d){
-                // Pull data for this country
-                d.selectedOption = data.get(d.id) || 0;
-                // Set the color
-                return colorScale(d.selectedOption);
-            })
-            .style("fill", function (d){
-                // Pull data for this country
-                d.selectedOption = data.get(d.id) || 0;
-                // Set the color
-                if(d.selectedOption == 10) return "url(#fireGradient)"
-                else if(d.selectedOption == 0) return "url(#circles-2)";
+    // Draw the map
+    svg.append("g")
+        .attr("class", "countries")
+        .selectAll("path")
+        .data(topo.features)
+        .enter().append("path")
+        .attr("fill", function (d){
+            // Pull data for this country
+            d.selectedOption = data.get(d.id) || 0;
+            // Set the color
+            return colorScale(d.selectedOption);
+        })
+        .style("fill", function (d){
+            // Pull data for this country
+            d.selectedOption = data.get(d.id) || 0;
+            // Set the color
+            if(d.selectedOption == 10) return "url(#fireGradient)"
+            else if(d.selectedOption == 0) return "url(#circles-2)";
 
-            })
-            .attr("d", path);
-    }
-
+        })
+        .attr("d", path);
 }
