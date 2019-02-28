@@ -2,18 +2,18 @@ import {svg, path, data, colorScale, g} from './mapSetup.js';
 
 
 //BUTTONS LIST
-var buttonTitles = [];
+let buttonTitles = [];
 // Initialize button
-var listButton = d3.select("#UI2")
+let listButton = d3.select("#UI2")
 
 //On application start
-InitalLoadAndDraw("pf_rol_procedural");
+InitalLoadAndDraw("pf_ss_disappearances_disap");
 
 
 //Draw map from data on start, create buttontitles
 function InitalLoadAndDraw(selectedOption){
 
-    var gotLines = false;
+    let gotLines = false;
 
     // Load external data and boot
     d3.queue()
@@ -24,7 +24,7 @@ function InitalLoadAndDraw(selectedOption){
             //get the headers aka categories to add to buttons in gui, only once
             if(!gotLines){
 
-                var dataHeaders = d3.keys(d);
+                let dataHeaders = d3.keys(d);
 
                 //store header titles related to index in buttonTitles
                 dataHeaders.forEach(function(item, index) {
@@ -46,7 +46,7 @@ function InitalLoadAndDraw(selectedOption){
                     .attr("value", function (d) {return d;})
                     .on("click", function() {  // recover the option that has been chosen
 
-                        var selectedOption = d3.select(this).property("value")
+                        let selectedOption = d3.select(this).property("value")
 
                         console.log("updating to :" + selectedOption);
 

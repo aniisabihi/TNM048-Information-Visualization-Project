@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <!-- bootstrap -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <!-- bootstrap -->
 
     <title>infovis</title>
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -17,24 +18,27 @@
     </div>
     <div class="container-fluid full-bg-img "> <!-- /container -->
         <div class="row d-flex"> <!-- ROW -->
-            <div class="col-lg-8 col-md-6 col-sm-12 col-xs-12"> <!-- col left -->
-                <div class="w3-card w3-hover-shadow w3-center">
+            <div class="col-lg-8 col-md-6 col-sm-12 col-xs-12">
+                <!-- col right -->
                 <div id="UI1">
-                    <svg width="900" height="540" xmlns="http://www.w3.org/2000/svg"
-                         xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+                    <!-- SVG defintions start -->
+                    <svg width="900" height="540" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                         version="1.1">
                         <defs>
+                            <linearGradient id="fireGradient" x1="%30" gradientTransform="rotate(90)">
+                                <stop offset="40%" stop-color="gold" />
+                                <stop offset="90%" stop-color="red" />
+                                <animate attributeName="x1" dur="1000ms" from="90%" to="0%" repeatCount="indefinite" />
+                            </linearGradient>
                             <pattern id="circles-2" patternUnits="userSpaceOnUse" width="10" height="10">
                                 <image
                                         xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScgLz4KICA8Y2lyY2xlIGN4PScxLjUnIGN5PScxLjUnIHI9JzEuNScgZmlsbD0nYmxhY2snLz4KPC9zdmc+Cg=="
                                         x="0" y="0" width="10" height="10"> </image>
                             </pattern>
-                            <linearGradient id="fireGradient" gradientTransform="rotate(90)">
-                                <stop offset="20%" stop-color="gold" />
-                                <stop offset="90%" stop-color="red" />
-                            </linearGradient>
                         </defs>
                     </svg>
-                </div>
+                    <!-- SVG defintions end -->
+
                 </div>
             </div>
 
@@ -60,7 +64,6 @@
 <script src="mapSetup.js" type="module"></script>
 <script src="main.js" type="module"></script>
 <script src="hoverfunction.js" type="module"></script>
-
 
 <!-- bootstrap requirements -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
