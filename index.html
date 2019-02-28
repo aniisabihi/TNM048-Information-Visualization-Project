@@ -2,34 +2,75 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>infovis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <!-- bootstrap -->
 
-<link rel="stylesheet" type="text/css" href="style.css">
+    <title>infovis</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
   </head>
+
   <body>
-        <div id="UI">
-            <svg width="960" height="600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-            version="1.1">
+    <div id="UI">
+        <svg width="960" height="600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        version="1.1">
             <defs>
               <pattern id="circles-2" patternUnits="userSpaceOnUse" width="10" height="10">
                 <image
                   xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScgLz4KICA8Y2lyY2xlIGN4PScxLjUnIGN5PScxLjUnIHI9JzEuNScgZmlsbD0nYmxhY2snLz4KPC9zdmc+Cg=="
-                  x="0" y="0" width="10" height="10"> </image>
+                  x="0" y="0" width="10" height="10">
+                </image>
               </pattern>
               <linearGradient id="fireGradient" gradientTransform="rotate(90)">
                 <stop offset="20%" stop-color="gold" />
                 <stop offset="90%" stop-color="red" />
               </linearGradient>
             </defs>
-          </svg>
-      </div>
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-        <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
-        <script src="mapSetup.js" type="module"></script>
-        <script src="main.js" type="module"></script>
+        </svg>
+    </div>
+
+      <div class="container-fluid full-bg-img ">
+          <div class="row d-flex"> <!-- ROW -->
+
+          <div class="col-lg-8 col-md-6 col-sm-12 col-xs-12"> <!-- col right -->
+            <div id="UI1">
+                <svg width="900" height="540" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+                <defs>
+                  <pattern id="circles-2" patternUnits="userSpaceOnUse" width="10" height="10">
+                    <image
+                      xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScgLz4KICA8Y2lyY2xlIGN4PScxLjUnIGN5PScxLjUnIHI9JzEuNScgZmlsbD0nYmxhY2snLz4KPC9zdmc+Cg=="
+                      x="0" y="0" width="10" height="10"> </image>
+                  </pattern>
+                  <linearGradient id="fireGradient" gradientTransform="rotate(90)">
+                    <stop offset="20%" stop-color="gold" />
+                    <stop offset="90%" stop-color="red" />
+                  </linearGradient>
+                </defs>
+              </svg>
+             </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12"> <!-- col left -->
+            <div id="UI2"></div>
+          </div>
+          </div><!-- /row -->
+       </div> <!-- /container -->
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+    <script src="mapSetup.js" type="module"></script>
+    <script src="main.js" type="module"></script>
+
+    <!-- bootstrap requirements -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+     </body>
 
 
-  </body>
 </html>
