@@ -2,18 +2,23 @@
     margin-top: 50px;
     margin-bottom: 50px;
 }
-
-#UI2{
-    height:500px;
+#UI2, #UI3{
+    height:180px;
     overflow-y: scroll;
 }
-h2{
+.space{
+    padding: 1em;
+    margin: 0;
+}
+h2, h5{
     color: lightseagreen;
 }
-.card-header{
-    background-color: lightgray;
-}
 .countries {
+    fill: none;
+    stroke: #fff;
+    stroke-linejoin: round;
+}
+.countries:hover{
     fill: none;
     stroke: #fff;
     stroke-linejoin: round;
@@ -30,21 +35,5 @@ h2{
 path:hover{
     stroke: black !important;
     stroke-width:2px;
-    stroke-linejoin: round;
     cursor: pointer;
-}
-.button1 {
-    background-color: lightseagreen;
-    border-radius: 20%;
-    border: none;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 8px;
-    margin: 10px 20px 10px 20px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    transition: all 0.5s;
-
 }

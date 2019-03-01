@@ -35,7 +35,7 @@ g.append("text")
     .attr("class", "caption")
     .attr("x", 0)
     .attr("y", -6)
-    .text("Colorscale of Freedom");
+    .text("Attribute 1");
 let labels = ['0-1', '2-3', '4-5', '5-6', '7-8', '8-9', '10',];
 let legend = d3.legendColor()
     .labels(function (d) { return labels[d.i]; })

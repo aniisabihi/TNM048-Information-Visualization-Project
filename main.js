@@ -6,6 +6,7 @@ import{generateFillGraphics} from './fillPatterns.js';
 let buttonTitles = [];
 // Initialize button
 let listButton = d3.select("#UI2")
+let listButton2 = d3.select("#UI3")
 
 //On application start
 InitalLoadAndDraw("pf_ss_disappearances_disap");
@@ -57,12 +58,29 @@ function InitalLoadAndDraw(selectedOption){
                         LoadAndDraw(selectedOption)
                     })
 
+                // add the options to the button
+                listButton2
+                    .selectAll("myOptions")
+                    .data(buttonTitles).enter()
+                    .append("option")
+                    .attr("type","button")
+                    .attr("class","button")
+                    .text(function (d) { return d; }) // text showed in the menu
+                    .attr("value", function (d) {return d;})
+                    .on("click", function() {  // recover the option that has been chosen
+
+                        let selectedOption = d3.select(this).property("value")
+
+                        console.log("updating to :" + selectedOption);
+
+                        // When the button is changed, redraw the map according to selected option
+                        LoadAndDraw(selectedOption)
+                    })
+
                 gotLines = true;
             }
         }).await(ready);
-
 }
-
 
 //Load data and draw map
 function LoadAndDraw(selectedOption){
@@ -75,8 +93,6 @@ function LoadAndDraw(selectedOption){
         .await(ready);
 
 }
-
-
 
 function ready(error, topo) {
     if (error) throw error;
