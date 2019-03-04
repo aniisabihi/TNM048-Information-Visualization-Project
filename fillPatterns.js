@@ -1,9 +1,9 @@
 export {generateFillGraphics};
-import {dataSetSecondary, data, colorScale, colorScaleSecondary} from './mapSetup.js';
+import {dataSetSecondary, dataSet, colorScale, colorScaleSecondary} from './mapSetup.js';
 
 function generateFillGraphics(countryId){
 
-    let freedomIndexPrimary = data.get(countryId) || 0;
+    let freedomIndexPrimary = dataSet.get(countryId) || 0;
     let freedomIndexSecondary = dataSetSecondary.get(countryId) || 0;
     let baseColor = colorScale(freedomIndexPrimary);
     let secondaryColor = colorScaleSecondary(freedomIndexSecondary);

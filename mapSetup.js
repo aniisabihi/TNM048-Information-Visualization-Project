@@ -1,4 +1,4 @@
-export {svg, path, data, colorScale, colorScaleSecondary, dataSetSecondary}
+export {svg, path, dataSet, colorScale, colorScaleSecondary, dataSetSecondary}
 
 // The svg
 let svg = d3.select("svg"),
@@ -13,7 +13,7 @@ var path = d3.geoPath()
     .projection(projection);
 
 // Data and color scale
-let data = d3.map();
+let dataSet = d3.map();
 let colorScheme = d3.schemeGreens[6];
 colorScheme.unshift("#eee")
 let colorScale = d3.scaleThreshold()

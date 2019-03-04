@@ -2,6 +2,14 @@
     margin-top: 50px;
     margin-bottom: 50px;
 }
+
+.buttonToggle{
+    fill: #fff;
+}
+
+body {
+    height:100%;
+}
 #UI2, #UI3{
     height:180px;
     overflow-y: scroll;
