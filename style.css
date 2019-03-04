@@ -1,22 +1,24 @@
 #UI1{
-    margin-top: 40px;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
-
-#UI3{
-    margin-top: 40px;
-    height:500px;
-    width: 75%;
-    font-size: 11px;
-    overflow-x:hidden;
+#UI2, #UI3{
+    height:180px;
+    overflow-y: scroll;
 }
-
-#buttonlist{
-    color: black;
-    width: 100%;
-    border: none;
+.space{
+    padding: 1em;
+    margin: 0;
 }
-
+h2, h5{
+    color: lightseagreen;
+}
 .countries {
+    fill: none;
+    stroke: #fff;
+    stroke-linejoin: round;
+}
+.countries:hover{
     fill: none;
     stroke: #fff;
     stroke-linejoin: round;
@@ -29,4 +31,9 @@
     fill: #000;
     text-anchor: start;
     font-weight: bold;
+}
+path:hover{
+    stroke: black !important;
+    stroke-width:2px;
+    cursor: pointer;
 }

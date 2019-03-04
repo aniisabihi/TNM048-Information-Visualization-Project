@@ -1,4 +1,4 @@
-export {svg, path, data, colorScale, g}
+export {svg, path, data, colorScale, colorScaleSecondary, dataSetSecondary}
 
 // The svg
 let svg = d3.select("svg"),
@@ -14,11 +14,18 @@ var path = d3.geoPath()
 
 // Data and color scale
 let data = d3.map();
-let colorScheme = d3.schemeReds[6];
+let colorScheme = d3.schemeGreens[6];
 colorScheme.unshift("#eee")
 let colorScale = d3.scaleThreshold()
-    .domain([1, 2, 4, 6, 8, 10])
+    .domain([0, 2, 4, 6, 8, 10])
     .range(colorScheme);
+
+let dataSetSecondary = d3.map();
+let colorSchemeSecondary = d3.schemeBlues[6];
+colorSchemeSecondary.unshift("#eee")
+let colorScaleSecondary = d3.scaleThreshold()
+    .domain([0, 2, 4, 6, 8, 10])
+    .range(colorSchemeSecondary);
 
 // Legend
 let g = svg.append("g")
@@ -28,7 +35,7 @@ g.append("text")
     .attr("class", "caption")
     .attr("x", 0)
     .attr("y", -6)
-    .text("Freedom");
+    .text("Attribute 1");
 let labels = ['0-1', '2-3', '4-5', '5-6', '7-8', '8-9', '10',];
 let legend = d3.legendColor()
     .labels(function (d) { return labels[d.i]; })

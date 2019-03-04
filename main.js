@@ -1,5 +1,6 @@
-import {svg, path, data, colorScale, g} from './mapSetup.js';
 import {buttonTitles} from './buttonData.js';
+import {svg, path, data, dataSetSecondary} from './mapSetup.js';
+import{generateFillGraphics} from './fillPatterns.js';
 
 var categoryMap = new Map();
 
@@ -8,19 +9,21 @@ categoryMap.set("keystring", "value associated with 'keystring'");
 
 //BUTTONS LIST
 var buttonIDs = []; //initialized in InitalLoadAndDraw
-
-
 // Initialize button
-var listButton = d3.select("#buttonlist")
+let listButton = d3.select("#UI2")
+let listButton2 = d3.select("#UI3")
+
 
 //On application start
 InitalLoadAndDraw("Procedural justice");
 
+//Secondary Data set option (temporary - ska väljas)
+const selectedOptionSecondary = "pf_ss_disappearances_fatalities";
 
 //Draw map from data on start, create buttontitles
 function InitalLoadAndDraw(selectedOption){
 
-    var gotLines = false;
+    let gotLines = false;
 
     // Load external data asynchronically and boot
 
@@ -32,11 +35,11 @@ function InitalLoadAndDraw(selectedOption){
         .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
         .defer(d3.csv, "hfi_cc_2018.csv", function(d) {
             data.set(d.ISO_code, +d[selectedOption]);
-
+            dataSetSecondary.set(d.ISO_code, +d[selectedOptionSecondary]);
             //get the headers aka categories to add to buttons in gui, only once
             if(!gotLines){
 
-                var dataHeaders = d3.keys(d);
+                let dataHeaders = d3.keys(d);
 
                 //store header titles related to index in buttonTitles
                 dataHeaders.forEach(function(item, index) {
@@ -45,8 +48,6 @@ function InitalLoadAndDraw(selectedOption){
                     }
                 });
 
-                console.log("buttonTitles:", buttonIDs);
-
                 //Map IDs to buttontitles
                 var mappedTitlesArray = buttonTitles.map(function(ID, i) {
                     return [ID, buttonIDs[i]];
@@ -54,7 +55,7 @@ function InitalLoadAndDraw(selectedOption){
 
                 var mappedTitles = new Map(mappedTitlesArray);
 
-                  console.log("map :", mappedTitles);
+                console.log("map :", mappedTitles);
 
                 // add the options to the button
                 listButton
@@ -69,6 +70,25 @@ function InitalLoadAndDraw(selectedOption){
                     .on("click", function(){  // recover the option that has been chosen
 
                         var selectedTitle = d3.select(this).property("value");
+                        var selectedID = mappedTitles.get(selectedTitle);
+                        console.log("updating to :" + selectedID);
+
+                        // When the button is changed, redraw the map according to selected option
+                        LoadAndDraw(selectedID);
+                    })
+
+                // add the options to the button
+                listButton2
+                    .selectAll("myOptions")
+                    .data(buttonTitles).enter()
+                    .append("option")
+                    .attr("type","button")
+                    .attr("class","button")
+                    .text(function (d) { return d; }) // text showed in the menu
+                    .attr("value", function (d) {return d;})
+                    .on("click", function() {  // recover the option that has been chosen
+
+                        let selectedTitle = d3.select(this).property("value")
                         var selectedID = mappedTitles.get(selectedTitle);
                         console.log("updating to :" + selectedID);
 
@@ -87,9 +107,7 @@ function InitalLoadAndDraw(selectedOption){
                 gotLines = true;
             }
         }).await(ready);
-
 }
-
 
 //Load data and draw map
 function LoadAndDraw(selectedOption){
@@ -106,6 +124,9 @@ function LoadAndDraw(selectedOption){
 function ready(error, topo) {
     if (error) throw error;
 
+    //second data set
+    
+    
     // Draw the map
     svg.append("g")
         .attr("class", "countries")
@@ -113,20 +134,8 @@ function ready(error, topo) {
         .data(topo.features)
         .enter().append("path")
         .attr("fill", function (d){
-            // Pull data for this country
-            d.selectedOption = data.get(d.id) || 0;
             // Set the color
-            return colorScale(d.selectedOption);
-        })
-        .style("fill", function (d){
-            // Pull data for this country
-            d.selectedOption = data.get(d.id) || 0;
-            // Set the color
-            if(d.selectedOption == 10) return "url(#fireGradient)"
-            else if(d.selectedOption == 0) return "url(#circles-2)";
-
+            return generateFillGraphics(d.id);
         })
         .attr("d", path);
 }
-
-
