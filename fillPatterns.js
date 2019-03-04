@@ -45,7 +45,5 @@ function createGradient(baseColor, secondaryColor, freedomIndexPrimary, freedomI
     let defs = mapSvg.querySelector('defs') ||
                 mapSvg.insertBefore( document.createElementNS(svgNS,'defs'), svg.firstChild);
     defs.appendChild(grad);
-    console.log("kör create gradient");
-
     return 'url(#' + id + ')'; 
   }
