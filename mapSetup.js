@@ -31,15 +31,19 @@ let colorScaleSecondary = d3.scaleThreshold()
 let g = svg.append("g")
     .attr("class", "legendThreshold")
     .attr("transform", "translate(20,20)");
+
 g.append("text")
     .attr("class", "caption")
     .attr("x", 0)
     .attr("y", -6)
     .text("Attribute 1");
+
 let labels = ['0-1', '2-3', '4-5', '5-6', '7-8', '8-9', '10',];
+
 let legend = d3.legendColor()
     .labels(function (d) { return labels[d.i]; })
     .shapePadding(4)
     .scale(colorScale);
+    
 svg.select(".legendThreshold")
     .call(legend);

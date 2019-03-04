@@ -17,8 +17,9 @@ let listButton2 = d3.select("#UI3")
 //On application start
 InitalLoadAndDraw("Procedural justice");
 
-//Secondary Data set option (temporary - ska väljas)
-const selectedOptionSecondary = "pf_ss_disappearances_fatalities";
+//Secondary Data set option
+let selectedOptionSecondary = "pf_ss_disappearances_fatalities";
+
 
 //Draw map from data on start, create buttontitles
 function InitalLoadAndDraw(selectedOption){
@@ -71,10 +72,10 @@ function InitalLoadAndDraw(selectedOption){
 
                         var selectedTitle = d3.select(this).property("value");
                         var selectedID = mappedTitles.get(selectedTitle);
-                        console.log("updating to :" + selectedID);
+                        console.log("updating to : " + selectedID);
 
                         // When the button is changed, redraw the map according to selected option
-                        LoadAndDraw(selectedID);
+                        LoadAndDraw(selectedID, selectedOptionSecondary);
                     })
 
                 // add the options to the button
@@ -90,33 +91,37 @@ function InitalLoadAndDraw(selectedOption){
 
                         let selectedTitle = d3.select(this).property("value")
                         var selectedID = mappedTitles.get(selectedTitle);
-                        console.log("updating to :" + selectedID);
+
+                        selectedOptionSecondary = selectedID;
+                        console.log("updating to : " + selectedID);
 
                         //bgcolor
                         d3.select(this).style("background-color", "#fff")
 
                         // When the button is changed, redraw the map according to selected option
-                       LoadAndDraw(selectedID)
+                       LoadAndDraw(selectedID, selectedOptionSecondary)
                        this.style.borderStyle; 
                     })
                  
                     //first draw
                 let selectedID = mappedTitles.get(selectedOption);
                 console.log("updating to :" + selectedID);
-                LoadAndDraw(selectedID)
+                LoadAndDraw(selectedID, selectedOptionSecondary)
                 gotLines = true;
             }
         }).await(ready);
 }
 
 //Load data and draw map
-function LoadAndDraw(selectedOption){
+function LoadAndDraw(selectedOption, selectedOptionSecondary){
 
     // Load external data and boot
     d3.queue()
         .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
         .defer(d3.csv, "hfi_cc_2018.csv", function(d) {
-            data.set(d.ISO_code, +d[selectedOption]); })
+            data.set(d.ISO_code, +d[selectedOption]); 
+            dataSetSecondary.set(d.ISO_code, +d[selectedOptionSecondary]);
+        })
         .await(ready);
 
 }
