@@ -11,82 +11,72 @@
 </head>
 
 <body>
-<div class="text-center"> <!-- /card text-center-->
-    <div class="card-header">
-        <h3>The Human Freedom Index</h3>
-        <h6>A visual display of information gathered from several countries around the world</h6>
-    </div>
-    <div class="container-fluid full-bg-img "> <!-- /container -->
-        <div class="row d-flex"> <!-- /row -->
-            <div class="col-lg-9 col-md-6 col-sm-12 col-xs-12"> <!-- col left -->
-                <div class="mapsize w3-card w3-hover-shadow w3-center"> <!-- card -->
-                    <div id="UI1"> <!-- Map Interface -->
-                        <div class="map-legend-container">
-                            <div class="map-legend" id="map-legend-primary"></div>
-                            <div class="map-legend" id="map-legend-secondary"></div>
-                        </div>
-                        <svg class="map" width="1050" height="500" xmlns="http://www.w3.org/2000/svg"
-                             xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
-                            <defs>
-                                <linearGradient id="firegradient" gradientTransform="rotate(90)">
-                                    <stop id="firegradient-color-1" offset="40%" stop-color="gold" />
-                                    <stop id="firegradient-color-2" offset="90%" stop-color="red" />
-                                    <animate attributeName="x1" dur="1000ms" from="90%" to="0%" repeatCount="indefinite" />
-                                  </linearGradient>
-                                  <pattern id="map" patternUnits="userSpaceOnUse" width="10" height="10">
-                                    <image
-                                      xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScgLz4KICA8Y2lyY2xlIGN4PScxLjUnIGN5PScxLjUnIHI9JzEuNScgZmlsbD0nYmxhY2snLz4KPC9zdmc+Cg=="
-                                      x="0" y="0" width="10" height="10"> </image>
-                                  </pattern>
-                            </defs>
-                        </svg>
-                        <div class="w3-card w3-center"> <!-- timeline -->
-                            <div class="timeline">
-                                <div class=space>
-                                    <button class="w3-button w3-round w3-teal">2008</button>
-                                    <button class="w3-button w3-round w3-teal">2009</button>
-                                    <button class="w3-button w3-round w3-teal">2010</button>
-                                    <button class="w3-button w3-round w3-teal">2011</button>
-                                    <button class="w3-button w3-round w3-teal">2012</button>
-                                    <button class="w3-button w3-round w3-teal">2013</button>
-                                    <button class="w3-button w3-round w3-teal">2014</button>
-                                    <button class="w3-button w3-round w3-teal">2015</button>
-                                    <button class="w3-button w3-round w3-teal">2016</button>
-                                </div>
+    <div class="text-center"> <!-- /card text-center-->
+        <div class="card-header">
+            <h3>The Human Freedom Index</h3>
+            <h4>A visual display of information gathered from several countries around the world</h4>
+        </div>
+        <!-- Collapsible HEADER -->
+        <button class="collapsibleHeader">Click here to display specific information</button>
+        <div class="collapsibleContent">
+            <div class="primaryList">
+                <br>
+                <h6><strong>Attribute 1 will be shown in green colors</strong></h6>
+                <hr>
+                <div id="UI2"></div>
+                <div class="space"></div>
+            </div>
+            <div class="secondaryList">
+                <br>
+                <h6><strong>Attribute 2 will be shown in a moving gradient</strong></h6>
+                <hr>
+                <div id="UI3"></div>
+                <div class="space"></div>
+            </div>
+        </div>
+        <div class="container-fluid full-bg-img "> <!-- /container -->
+            <div class="row d-flex"> <!-- /row -->
+                <div class="col-lg-12 col-md-10 col-sm-12 col-xs-12"> <!-- col left -->
+                    <div class="mapsize w3-card w3-hover-shadow w3-center"> <!-- card -->
+                        <div id="UI1"> <!-- Map Interface -->
+                            <div class="map-legend-container">
+                                <div class="map-legend" id="map-legend-primary"></div>
+                                <div class="map-legend" id="map-legend-secondary"></div>
                             </div>
-                        </div> <!-- timeline -->
-                    </div> <!-- Map Interface -->
-                </div> <!-- card -->
-            </div> <!-- col left -->
-
-
-            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12"> <!-- col right -->
-                <div class=listspace>
-                    <div class="listsize w3-card w3-hover-shadow w3-center">
-                        <div class="col-12" id="tooltip">
-                            <br>
-                            <h5><strong>Choose information to be displayed</strong></h5>
-                            <h6>Attribute 1 will be shown in green colors</h6>
-                            <hr>
-                            <div id="UI2"></div>
-                            <div class="space"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class=listspace>
-                    <div class="listsize w3-card w3-hover-shadow w3-center">
-                        <div class="col-12" id="tooltip">
-                            <br>
-                            <h5><strong>Choose information to be displayed</strong></h5>
-                            <h6>Attribute 2 will be shown in a moving gradient</h6>
-                            <hr>
-                            <div id="UI3"></div>
-                            <div class="space"></div>
-                        </div>
-                    </div>
-
-                </div> <!-- col right -->
-            </div> <!-- /row -->
+                            <svg class="map" width="1200" height="530" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+                                <defs>
+                                    <linearGradient id="firegradient" gradientTransform="rotate(90)">
+                                        <stop id="firegradient-color-1" offset="40%" stop-color="gold" />
+                                        <stop id="firegradient-color-2" offset="90%" stop-color="red" />
+                                        <animate attributeName="x1" dur="1000ms" from="90%" to="0%" repeatCount="indefinite" />
+                                      </linearGradient>
+                                      <pattern id="map" patternUnits="userSpaceOnUse" width="10" height="10">
+                                        <image
+                                          xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScgLz4KICA8Y2lyY2xlIGN4PScxLjUnIGN5PScxLjUnIHI9JzEuNScgZmlsbD0nYmxhY2snLz4KPC9zdmc+Cg=="
+                                          x="0" y="0" width="10" height="10"> </image>
+                                      </pattern>
+                                </defs>
+                            </svg>
+                            <div class="w3-card w3-center"> <!-- timeline -->
+                                <div class="timeline">
+                                    <div class=space>
+                                        <button class="w3-button w3-round w3-teal">2008</button>
+                                        <button class="w3-button w3-round w3-teal">2009</button>
+                                        <button class="w3-button w3-round w3-teal">2010</button>
+                                        <button class="w3-button w3-round w3-teal">2011</button>
+                                        <button class="w3-button w3-round w3-teal">2012</button>
+                                        <button class="w3-button w3-round w3-teal">2013</button>
+                                        <button class="w3-button w3-round w3-teal">2014</button>
+                                        <button class="w3-button w3-round w3-teal">2015</button>
+                                        <button class="w3-button w3-round w3-teal">2016</button>
+                                    </div>
+                                </div>
+                            </div> <!-- timeline -->
+                        </div> <!-- Map Interface -->
+                    </div> <!-- card -->
+                </div> <!-- col left -->
+            </div> <!-- row -->
         </div> <!-- /container -->
     </div> <!-- /card text-center-->
 
@@ -95,6 +85,7 @@
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
     <script src="main.js" type="module"></script>
+    <script src="collapseHeader.js" type="module"></script>
 
     <!-- bootstrap requirements -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"

@@ -1,36 +1,26 @@
-#UI1{
-    margin-top: 50px;
-    margin-bottom: 50px;
-}
-
-.buttonToggle{
-    fill: #fff;
-}
-
+/* GENERAL */
 body {
     height:100%;
 }
-#UI2, #UI3{
-    height:150px;
-    overflow-y: scroll;
+h3, h6{
+    color: lightseagreen;
 }
-.mapsize{
-    width: 990px;
-}
-.listsize{
-    width: 300px;
-}
-.listspace{
-    margin: 0;
-    padding-top: 20px;
+h6{
+    text-align: left;
 }
 .space{
     padding: 1em;
     margin: 0;
-    padding-left: -100px;
 }
-h3, h4, h5{
-    color: lightseagreen;
+
+/* WORLD MAP */
+#UI1{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.mapsize{
+    width: 100%;
+    margin-top: -25px;
 }
 .countries {
     fill: none;
@@ -38,24 +28,16 @@ h3, h4, h5{
     stroke-linejoin: round;
     width: inherit;
 }
-.countries:hover{
-    fill: none;
-    stroke: #fff;
-    stroke-linejoin: round;
-}
-.legendThreshold {
-    font-size: 12px;
-    font-family: sans-serif;
-}
-.caption {
-    fill: #000;
-    text-anchor: start;
-    font-weight: bold;
-}
 path:hover{
     stroke: black !important;
     stroke-width:2px;
     cursor: pointer;
+}
+
+/* LEGENDS */
+.legendThreshold {
+    font-size: 12px;
+    font-family: sans-serif;
 }
 .map-legend-container{
     position: absolute;
@@ -88,4 +70,57 @@ path:hover{
     margin-left: 10px;
     color: darkslategray;
     font-size: 0.9rem;
+}
+
+/* COLLAPSE HEADER WITH LIST OF ATTRIBUTES */
+#UI2, #UI3{
+    height:150px;
+    overflow-y: scroll;
+    text-align: left;
+}
+.collapsibleHeader {
+    background-color: lightseagreen;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 17px;
+}
+.active, .collapsibleHeader:hover {
+    background-color: #555;
+}
+.collapsibleHeader:after {
+    content: '\002B';
+    color: white;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+.active:after {
+    content: "\2212";
+}
+.collapsibleContent {
+    padding: 0 18px;
+    overflow: hidden;
+    background-color: #f1f1f1;
+    display: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-height: 0;
+    transition: max-height 0.3s ease-in-out;
+}
+.collapsibleContent:active{
+    transition: max-height 0.3s ease-in-out;
+}
+.primaryList, .secondaryList{
+    width: 50%;
+}
+
+/* TIMELINE */
+.w3-button{
+    margin-left: 40px;
 }

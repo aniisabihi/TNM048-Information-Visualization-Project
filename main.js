@@ -92,4 +92,3 @@ function ready(error, jsonData){
     //Create legend
     drawCustomLegend(primaryTitle, secondaryTitle);
 }
-
