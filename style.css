@@ -11,20 +11,32 @@ body {
     height:100%;
 }
 #UI2, #UI3{
-    height:180px;
+    height:150px;
     overflow-y: scroll;
+}
+.mapsize{
+    width: 990px;
+}
+.listsize{
+    width: 300px;
+}
+.listspace{
+    margin: 0;
+    padding-top: 20px;
 }
 .space{
     padding: 1em;
     margin: 0;
+    padding-left: -100px;
 }
-h2, h5{
+h3, h4, h5{
     color: lightseagreen;
 }
 .countries {
     fill: none;
     stroke: #fff;
     stroke-linejoin: round;
+    width: inherit;
 }
 .countries:hover{
     fill: none;
