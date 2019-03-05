@@ -1,29 +1,41 @@
-import{mappedTitles, LoadAndDraw} from './main.js';
+import{mappedTitles, ReloadMap} from './main.js';
 import {buttonTitles} from './buttonData.js';
-export {DrawButtons, listButton, listButton2}
+export {DrawButtons,  primaryTitle, secondaryTitle, primaryID, secondaryID} //listButton, listButton2,
 
 // Initialize button
 let listButton = d3.select("#UI2")
 let listButton2 = d3.select("#UI3")
-let lastClicked;
+
+//Default values, used on InitialLoad
+let primaryTitle = "Disappearances";
+let secondaryTitle = "Civil Justice";
+let primaryID = "pf_ss_disappearance";
+let secondaryID = "pf_rol_civil";
 
 function buttonClick(){
-    let selectedTitle = d3.select(this).property("value");
-    let selectedID = mappedTitles.get(selectedTitle);
-       
-    console.log("updating to parameter:" + selectedID);
+    
 
+    //Button is in primary list 
     if(d3.select(this).attr("class") == "button1"){
+        primaryTitle = d3.select(this).property("value");
+        primaryID = mappedTitles.get(primaryTitle);
+
+        //deselect other buttons
         d3.selectAll(".button1").style("background-color", "#fff")
+        console.log("updating to parameter:" + primaryID);
     }
-    else  {
+    else  { //Button is in secondary list
+        secondaryTitle = d3.select(this).property("value");
+        secondaryID = mappedTitles.get(secondaryTitle);
+
+        //deselect other buttons
         d3.selectAll(".button2").style("background-color", "#fff") 
+        console.log("updating to parameter:" + secondaryID);
     }  
    
+    //select clicked button
     d3.select(this).style("background-color", "plum")
-   
-    // When the button is changed, redraw the map according to selected option
-    LoadAndDraw(selectedID);
+    ReloadMap(primaryID, secondaryID);
 
 }
 

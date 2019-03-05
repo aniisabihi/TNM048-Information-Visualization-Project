@@ -1,27 +1,21 @@
 import {buttonTitles} from './buttonData.js';
 import {svg, path, dataSet, dataSetSecondary} from './mapSetup.js';
 import{generateFillGraphics} from './fillPatterns.js';
-export{mappedTitles, LoadAndDraw};
-import{DrawButtons} from './ButtonListsSetup.js'
+export{mappedTitles, ReloadMap};
+import{DrawButtons, primaryTitle, secondaryTitle, primaryID, secondaryID} from './ButtonListsSetup.js'
+import { drawCustomLegend } from './createLegends.js';
 
-
-//import {DrawButtons, listButton, listButton2} from './ButtonListsSetup.js';
-//export {mappedTitles};
 
 let mappedTitles; 
 
-//Secondary Data set option (temporary - ska väljas)
-const selectedOptionSecondary = "pf_ss_disappearances_fatalities";
-const selectedOption = "pf_rol_civil";
 //On application start
-InitalLoad(selectedOption, selectedOptionSecondary);
+InitalLoad(primaryID, secondaryID); //has default value from ButtonListSetup.js
 
 //Set up buttons
 DrawButtons();
 
-
-//Draw map from data on start, create buttontitles
-function InitalLoad(selectedOption, selectedOptionSecondary){
+//Draw map from data on start, create <buttonTitles,buttonIDS> Map
+function InitalLoad(primaryID, secondaryID) {
 
     let gotLines = false;
 
@@ -31,16 +25,15 @@ function InitalLoad(selectedOption, selectedOptionSecondary){
         - results from the requests are returned in order they were requested */
     d3.queue()
      .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
-     .defer(d3.csv, "hfi_cc_2018.csv", function(dataFreedom) {
+     .defer(d3.csv, "hfi_cc_2018.csv", function(d) {
 
-            dataSet.set(dataFreedom.ISO_code, +dataFreedom[selectedOption]);
-            dataSetSecondary.set(dataFreedom.ISO_code, +dataFreedom[selectedOptionSecondary]); 
-            
-            
+            dataSet.set(d.ISO_code, +d[primaryID]);
+            dataSetSecondary.set(d.ISO_code, +d[secondaryID]); 
+                   
             //get the headers aka categories to add to buttons in gui, only once
-            if(!gotLines){
+            if (!gotLines) {
 
-                let dataHeaders = d3.keys(dataFreedom); //d3.keys(dataFreedom);
+                let dataHeaders = d3.keys(d);
                 let buttonIDs = []; 
 
                 //store header titles
@@ -60,22 +53,23 @@ function InitalLoad(selectedOption, selectedOptionSecondary){
                 //Make array into Map with <key, valye> pairs
                 mappedTitles = new Map(mappedTitlesArray); 
                  
-                //only do once
                 gotLines = true;
             }
+
         }).await(ready); //callback called when every request done
 }
 
 //Load data and draw map
-function LoadAndDraw(selectedOption){
+function ReloadMap(primaryID, secondaryID) {
 
     //reload data
     d3.queue()
     .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
     .defer(d3.csv, "hfi_cc_2018.csv", function(d) {
-         dataSet.set(d.ISO_code, +d[selectedOption]); 
+         dataSet.set(d.ISO_code, +d[primaryID]); 
+         dataSetSecondary.set(d.ISO_code, +d[secondaryID]);
     }).await(ready);
-    
+
 }
 
 
@@ -89,9 +83,13 @@ function ready(error, jsonData){
         .selectAll("path")
         .data(jsonData.features)
         .enter().append("path")
-        .attr("fill", function (d){
-            // Set the color
+        .attr("fill", function (d) {
+            //Fill map with color
             return generateFillGraphics(d.id);
         })
         .attr("d", path);
+
+    //Create legend
+    drawCustomLegend(primaryTitle, secondaryTitle);
 }
+
