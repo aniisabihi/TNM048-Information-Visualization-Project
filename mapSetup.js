@@ -21,7 +21,8 @@ let colorScale = d3.scaleThreshold()
     .range(colorScheme);
 
 let dataSetSecondary = d3.map();
-let colorSchemeSecondary = d3.schemeBlues[6];
+let colorSchemeSecondary = d3.schemeBlues[6];   //Blå
+//schemeRdBu Röd-Blå,  schemeRdYlBu Röd gul blå -- https://github.com/d3/d3-scale-chromatic
 colorSchemeSecondary.unshift("#eee")
 let colorScaleSecondary = d3.scaleThreshold()
     .domain([0, 2, 4, 6, 8, 10])

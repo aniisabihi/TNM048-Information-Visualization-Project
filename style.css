@@ -120,6 +120,14 @@ path:hover{
     width: 50%;
 }
 
+#animation-toggle{
+    background: pink;
+    position: absolute;
+    float: right;
+    right: 25px;
+    top: 30px;
+}
+
 /* TIMELINE */
 .w3-button{
     margin-left: 40px;
