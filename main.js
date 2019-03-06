@@ -14,6 +14,11 @@ InitalLoad(primaryID, secondaryID); //has default value from ButtonListSetup.js
 //Set up buttons
 DrawButtons();
 
+//Tooltip test
+var tooltip = d3.select("body").append("div") 
+        .attr("class", "tooltip")       
+        .style("opacity", 0);
+
 //Draw map from data on start, create <buttonTitles,buttonIDS> Map
 function InitalLoad(primaryID, secondaryID) {
 
@@ -87,8 +92,34 @@ function ready(error, jsonData){
             //Fill map with color
             return generateFillGraphics(d.id);
         })
-        .attr("d", path);
+        .attr("d", path)
+        .on("mouseover", function(d) { //show facts about country on hover
+            tooltip.transition()    
+            .duration(200)    
+            .style("opacity", 0.9);    
+            tooltip.html("<b>" + d.properties.name + "</b>" + "<br>" + primaryTitle + ": " 
+            + displayIndex(d, dataSet) + "<br>" + secondaryTitle + ": "
+            + displayIndex(d, dataSetSecondary) + "<br> Total Freedom: " + "TODO")
+            .style("left", (d3.event.pageX) + "px")   
+            .style("top", (d3.event.pageY - 28) + "px");
+          })          
+          .on("mouseout", function(d) {   
+            tooltip.transition()    
+            .duration(500)    
+            .style("opacity", 0); 
+          });
 
     //Create legend
     drawCustomLegend(primaryTitle, secondaryTitle);
+}
+
+//Rounds index to 2 decimals and handles unavailable data on display
+function displayIndex(data, theDataSet) {
+
+    if(!theDataSet.get(data.id)){ //data undefined
+        return "No data";
+    }
+    else {
+        return parseFloat(theDataSet.get(data.id).toFixed(2)); 
+    }
 }
