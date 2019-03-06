@@ -4,7 +4,7 @@ export function drawCustomLegend(primaryOption, secondaryOption){
 
     $("#map-legend-primary").empty();
     $("#map-legend-primary").append('<div class="legend-title">'+
-                                        primaryOption +'</div>').css('color', 'plum');
+                                        primaryOption +'</div>').css({color:'plum'});
     for (var i=0;i<labels.length;i++){
         $("#map-legend-primary").append('<div class="legend-label"></div>');
         let tempLabel = $("#map-legend-primary .legend-label:last-child");
