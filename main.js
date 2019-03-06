@@ -112,6 +112,7 @@ function ready(error, jsonData){
     //Create legend
     drawCustomLegend(primaryTitle, secondaryTitle);
 }
+<<<<<<< HEAD
 
 //Rounds index to 2 decimals and handles unavailable data on display
 function displayIndex(data, theDataSet) {
@@ -123,3 +124,5 @@ function displayIndex(data, theDataSet) {
         return parseFloat(theDataSet.get(data.id).toFixed(2)); 
     }
 }
+=======
+>>>>>>> df3365f27fa56477cf9d599a713c6dde6fe5e855

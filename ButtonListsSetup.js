@@ -13,7 +13,6 @@ let primaryID = "pf_ss_disappearances_disap";
 let secondaryID = "pf_rol_civil";
 
 function buttonClick(){
-    
 
     //Button is in primary list 
     if(d3.select(this).attr("class") == "button1"){
@@ -21,7 +20,7 @@ function buttonClick(){
         primaryID = mappedTitles.get(primaryTitle);
 
         //deselect other buttons
-        d3.selectAll(".button1").style("background-color", "#fff")
+        d3.selectAll(".button1").style("background-color", "#f1f1f1")
         console.log("updating to parameter:" + primaryID);
     }
     else  { //Button is in secondary list
@@ -29,16 +28,19 @@ function buttonClick(){
         secondaryID = mappedTitles.get(secondaryTitle);
 
         //deselect other buttons
-        d3.selectAll(".button2").style("background-color", "#fff") 
+        d3.selectAll(".button2").style("background-color", "#f1f1f1")
         console.log("updating to parameter:" + secondaryID);
     }  
    
     //select clicked button
-    d3.select(this).style("background-color", "plum")
+    if(d3.select(this).attr("class") == "button1"){
+        d3.select(this).style("background-color", "plum");
+    }
+    else{
+        d3.select(this).style("background-color", "palevioletred");
+    }
     ReloadMap(primaryID, secondaryID);
-
 }
-
 
 function DrawButtons(){
 
@@ -66,8 +68,7 @@ function DrawButtons(){
     .attr("value", function (d) {return d;})
     .on("click",  buttonClick);
 
-    d3.selectAll(".button1").style("background-color", "#fff")
-    d3.selectAll(".button2").style("background-color", "#fff")
-    
+    d3.selectAll(".button1").style("background-color", "#f1f1f1")
+    d3.selectAll(".button2").style("background-color", "#f1f1f1")
 }
   

@@ -4,19 +4,19 @@ export function drawCustomLegend(primaryOption, secondaryOption){
 
     $("#map-legend-primary").empty();
     $("#map-legend-primary").append('<div class="legend-title">'+
-                                        primaryOption +'</div>');
+                                        primaryOption +'</div>').css('color', 'plum');
     for (var i=0;i<labels.length;i++){
         $("#map-legend-primary").append('<div class="legend-label"></div>');
         let tempLabel = $("#map-legend-primary .legend-label:last-child");
         tempLabel.append('<div class="legend-label-color"></div>')
         tempLabel.append('<div class="legend-label-text"></div>');
         tempLabel.children('.legend-label-color').css('background', colorScale(i*2));
-        tempLabel.children(".legend-label-text").last().text(labels[i]); 
+        tempLabel.children(".legend-label-text").last().text(labels[i]);
     }
 
     $("#map-legend-secondary").empty();
     $("#map-legend-secondary").append('<div class="legend-title">'+
-                                        secondaryOption +'</div>');
+                                        secondaryOption +'</div>').css('color', 'palevioletred');
     for (var i=0;i<labels.length;i++){    
         $("#map-legend-secondary").append('<div class="legend-label"></div>');
         let tempLabel = $("#map-legend-secondary .legend-label:last-child");
