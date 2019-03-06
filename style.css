@@ -3,17 +3,36 @@
     margin-bottom: 50px;
 }
 
-.buttonToggle{
-    fill: #fff;
+#UI2, #UI3{
+    height:180px;
+    overflow-y: scroll;
 }
 
 body {
     height:100%;
 }
-#UI2, #UI3{
-    height:180px;
-    overflow-y: scroll;
+
+
+div.tooltip { 
+    display: inline-block; /* size adjusts according to content */
+    position: absolute;     
+    text-align: center;  
+    display: flex; 
+    justify-content: center;
+    flex-direction: column; /* vertical alignment */
+    max-width: 160px;   
+    padding: 7px 10px 7px 10px;           
+    font-size: 12px; 
+    color: white;   
+    background:plum; 
+    border: 0px;        
+    pointer-events: none; 
+
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;    
 }
+
 .space{
     padding: 1em;
     margin: 0;
@@ -40,9 +59,11 @@ h2, h5{
     text-anchor: start;
     font-weight: bold;
 }
+
+
 path:hover{
-    stroke: black !important;
-    stroke-width:2px;
+  /*  stroke: black !important;
+    stroke-width:2px; */
     cursor: pointer;
 }
 .map-legend-container{
