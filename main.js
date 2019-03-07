@@ -8,7 +8,7 @@ import {year, displayYear} from './Timeline.js';
 
 let mappedTitles; 
 let totFreedomSet = d3.map();
-let totFreedomID = "hf_score";
+let totFreedomID = "hf_rank";
 
 //On application start
 InitalLoad(primaryID, secondaryID, totFreedomID); //has default value from ButtonListSetup.js
@@ -100,10 +100,10 @@ function ready(error, jsonData){
             tooltip.transition()    
             .duration(200)    
             .style("opacity", 0.9);    
-            tooltip.html("<b>"  + d.properties.name + "</b>" + "<b>Year: " + displayYear + "<br>" + primaryTitle + ": "
+            tooltip.html("<b>"  + d.properties.name + "</b>" + "<br>Year: " + displayYear + "<br>" + primaryTitle + ": "
             + displayIndex(d, dataSet) + "<br>" + secondaryTitle + ": "
-            + displayIndex(d, dataSetSecondary) + "<br> Total Freedom: " 
-            + parseFloat(totFreedomSet.get(d.id).toFixed(2)))
+            + displayIndex(d, dataSetSecondary) + "<br> World Freedom Rank: " 
+            + displayFreedomIndex(d))
             .style("left", (d3.event.pageX) + "px")   
             .style("top", (d3.event.pageY - 28) + "px");
           })          
@@ -120,10 +120,12 @@ function ready(error, jsonData){
 //Rounds index to 2 decimals and handles unavailable data on display
 function displayIndex(data, theDataSet) {
 
-    if(!theDataSet.get(data.id)){ //data undefined
-        return "No data";
-    }
-    else {
-        return parseFloat(theDataSet.get(data.id).toFixed(2)); 
-    }
+    if(!theDataSet.get(data.id)) return "No data";
+    else return parseFloat(theDataSet.get(data.id).toFixed(2)); 
+}
+
+function displayFreedomIndex(data){
+
+    if(!totFreedomSet.get(data.id)) return "No data";
+    else return parseFloat(totFreedomSet.get(data.id).toFixed(2));
 }
