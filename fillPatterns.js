@@ -9,10 +9,10 @@ function generateFillGraphics(countryId){
     let secondaryColor = colorScaleSecondary(freedomIndexSecondary);
 
     if(freedomIndexPrimary == -1){
-      baseColor = "#ccc"; //make grey if no data
+      baseColor = "#EAEAEA"; //make grey if no data
     }
     if(freedomIndexSecondary == -1){
-      secondaryColor = "#ccc";
+      secondaryColor = "#EAEAEA";
     }
 
     //return 'url(#circlePattern)';
