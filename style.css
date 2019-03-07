@@ -31,6 +31,9 @@ h6{
     width: inherit;
 }
 
+path{
+    stroke: plum;
+}
 
 path:hover{
     stroke: plum !important;

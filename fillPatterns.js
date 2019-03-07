@@ -3,12 +3,19 @@ import {dataSetSecondary, dataSet, colorScale, colorScaleSecondary} from './mapS
 
 function generateFillGraphics(countryId){
 
-    let freedomIndexPrimary = dataSet.get(countryId) || 0;
-    let freedomIndexSecondary = dataSetSecondary.get(countryId) || 0;
+    let freedomIndexPrimary = dataSet.get(countryId) || -1; //-1 = no data available
+    let freedomIndexSecondary = dataSetSecondary.get(countryId) || -1;
     let baseColor = colorScale(freedomIndexPrimary);
     let secondaryColor = colorScaleSecondary(freedomIndexSecondary);
 
-    //return 'url(#firegradient)';
+    if(freedomIndexPrimary == -1){
+      baseColor = "#ccc"; //make grey if no data
+    }
+    if(freedomIndexSecondary == -1){
+      secondaryColor = "#ccc";
+    }
+
+    //return 'url(#circlePattern)';
     return createGradient(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
 }
 
