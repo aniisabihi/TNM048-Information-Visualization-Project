@@ -1,6 +1,7 @@
 import{mappedTitles, ReloadMap} from './main.js';
 import {buttonTitles} from './buttonData.js';
 export {DrawButtons,  primaryTitle, secondaryTitle, primaryID, secondaryID} //listButton, listButton2,
+import {year} from "./Timeline.js";
 
 // Initialize button
 let listButton = d3.select("#UI2")
@@ -39,7 +40,7 @@ function buttonClick(){
     else{
         d3.select(this).style("background-color", "palevioletred");
     }
-    ReloadMap(primaryID, secondaryID);
+    ReloadMap(primaryID, secondaryID, year);
 }
 
 function DrawButtons(){

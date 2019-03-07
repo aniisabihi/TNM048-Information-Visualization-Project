@@ -4,7 +4,7 @@ import{generateFillGraphics} from './fillPatterns.js';
 export{mappedTitles, ReloadMap};
 import{DrawButtons, primaryTitle, secondaryTitle, primaryID, secondaryID} from './ButtonListsSetup.js'
 import { drawCustomLegend } from './createLegends.js';
-
+import {year, displayYear} from './Timeline.js';
 
 let mappedTitles; 
 
@@ -30,7 +30,7 @@ function InitalLoad(primaryID, secondaryID) {
         - results from the requests are returned in order they were requested */
     d3.queue()
      .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
-     .defer(d3.csv, "hfi_cc_2018.csv", function(d) {
+     .defer(d3.csv, year, function(d) {
 
             dataSet.set(d.ISO_code, +d[primaryID]);
             dataSetSecondary.set(d.ISO_code, +d[secondaryID]); 
@@ -65,12 +65,12 @@ function InitalLoad(primaryID, secondaryID) {
 }
 
 //Load data and draw map
-function ReloadMap(primaryID, secondaryID) {
+function ReloadMap(primaryID, secondaryID, year) {
 
     //reload data
     d3.queue()
     .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
-    .defer(d3.csv, "hfi_cc_2018.csv", function(d) {
+    .defer(d3.csv, year, function(d) {
          dataSet.set(d.ISO_code, +d[primaryID]); 
          dataSetSecondary.set(d.ISO_code, +d[secondaryID]);
     }).await(ready);
@@ -97,7 +97,7 @@ function ready(error, jsonData){
             tooltip.transition()    
             .duration(200)    
             .style("opacity", 0.9);    
-            tooltip.html("<b>" + d.properties.name + "</b>" + "<br>" + primaryTitle + ": " 
+            tooltip.html("<b>"  + d.properties.name + "</b>" + "<b>Year: " + displayYear + "<br>" + primaryTitle + ": "
             + displayIndex(d, dataSet) + "<br>" + secondaryTitle + ": "
             + displayIndex(d, dataSetSecondary) + "<br> Total Freedom: " + "TODO")
             .style("left", (d3.event.pageX) + "px")   
