@@ -7,9 +7,11 @@ import { drawCustomLegend } from './createLegends.js';
 import {year, displayYear} from './Timeline.js';
 
 let mappedTitles; 
+let totFreedomSet = d3.map();
+let totFreedomID = "hf_score";
 
 //On application start
-InitalLoad(primaryID, secondaryID); //has default value from ButtonListSetup.js
+InitalLoad(primaryID, secondaryID, totFreedomID); //has default value from ButtonListSetup.js
 
 //Set up buttons
 DrawButtons();
@@ -20,7 +22,7 @@ var tooltip = d3.select("body").append("div")
         .style("opacity", 0);
 
 //Draw map from data on start, create <buttonTitles,buttonIDS> Map
-function InitalLoad(primaryID, secondaryID) {
+function InitalLoad(primaryID, secondaryID, totFreedomID) {
 
     let gotLines = false;
 
@@ -32,6 +34,7 @@ function InitalLoad(primaryID, secondaryID) {
      .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
      .defer(d3.csv, year, function(d) {
 
+            totFreedomSet.set(d.ISO_code, +d[totFreedomID]);
             dataSet.set(d.ISO_code, +d[primaryID]);
             dataSetSecondary.set(d.ISO_code, +d[secondaryID]); 
                    
@@ -99,7 +102,8 @@ function ready(error, jsonData){
             .style("opacity", 0.9);    
             tooltip.html("<b>"  + d.properties.name + "</b>" + "<b>Year: " + displayYear + "<br>" + primaryTitle + ": "
             + displayIndex(d, dataSet) + "<br>" + secondaryTitle + ": "
-            + displayIndex(d, dataSetSecondary) + "<br> Total Freedom: " + "TODO")
+            + displayIndex(d, dataSetSecondary) + "<br> Total Freedom: " 
+            + parseFloat(totFreedomSet.get(d.id).toFixed(2)))
             .style("left", (d3.event.pageX) + "px")   
             .style("top", (d3.event.pageY - 28) + "px");
           })          
