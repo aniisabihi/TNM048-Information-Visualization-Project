@@ -14,6 +14,19 @@ h5{
     margin: 0;
 }
 
+/* INFO ICON */
+.material-icons{
+    color: plum;
+    font-size: 60px;
+    position: absolute;
+    top: 3%;
+    right: 2%;
+}
+.material-icons:hover{
+    color: #555;
+    cursor: pointer;
+}
+
 /* WORLD MAP */
 #UI1{
     margin-top: 50px;
