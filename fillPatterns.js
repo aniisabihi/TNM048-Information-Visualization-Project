@@ -9,14 +9,20 @@ $( "#animation-toggle" ).click(function() {
 
 function generateFillGraphics(countryId){
 
-    let freedomIndexPrimary = dataSet.get(countryId) || 0;
-    let freedomIndexSecondary = dataSetSecondary.get(countryId) || 0;
+    let freedomIndexPrimary = dataSet.get(countryId) || -1; //-1 = no data available
+    let freedomIndexSecondary = dataSetSecondary.get(countryId) || -1;
     let baseColor = colorScale(freedomIndexPrimary);
     let secondaryColor = colorScaleSecondary(freedomIndexSecondary);
 
-    //return 'url(#firegradient)';
-    //return createGradient(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
-    return createShinyStripe();
+    if(freedomIndexPrimary == -1){
+      baseColor = "#EAEAEA"; //make grey if no data
+    }
+    if(freedomIndexSecondary == -1){
+      secondaryColor = "#EAEAEA";
+    }
+
+    //return 'url(#circlePattern)';
+    return createGradient(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
 }
 
 function createGradient(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary){

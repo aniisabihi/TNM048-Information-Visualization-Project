@@ -1,6 +1,7 @@
 import{mappedTitles, ReloadMap} from './main.js';
 import {buttonTitles} from './buttonData.js';
 export {DrawButtons,  primaryTitle, secondaryTitle, primaryID, secondaryID} //listButton, listButton2,
+import {year} from "./Timeline.js";
 
 // Initialize button
 let listButton = d3.select("#UI2")
@@ -9,7 +10,7 @@ let listButton2 = d3.select("#UI3")
 //Default values, used on InitialLoad
 let primaryTitle = "Disappearances";
 let secondaryTitle = "Civil Justice";
-let primaryID = "pf_ss_disappearance";
+let primaryID = "pf_ss_disappearances_disap";
 let secondaryID = "pf_rol_civil";
 
 function buttonClick(){
@@ -39,7 +40,7 @@ function buttonClick(){
     else{
         d3.select(this).style("background-color", "palevioletred");
     }
-    ReloadMap(primaryID, secondaryID);
+    ReloadMap(primaryID, secondaryID, year);
 }
 
 function DrawButtons(){
