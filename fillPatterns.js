@@ -1,4 +1,4 @@
-export {generateFillGraphics};
+export {generateFillGraphics, clearFillGraphics};
 import {dataSetSecondary, dataSet, colorScale, colorScaleSecondary} from './mapSetup.js';
 
 let animationType = "moving-gradient";
@@ -7,22 +7,21 @@ $( "#animation-toggle" ).click(function() {
     animationType = "shiny-stripe";
 });
 
+function clearFillGraphics(){
+  let defs = $('#fill-defs');
+  defs.empty();
+}
 function generateFillGraphics(countryId){
 
-    let freedomIndexPrimary = dataSet.get(countryId) || -1; //-1 = no data available
-    let freedomIndexSecondary = dataSetSecondary.get(countryId) || -1;
+    let freedomIndexPrimary = dataSet.get(countryId) || 0;
+    let freedomIndexSecondary = dataSetSecondary.get(countryId) || 0;
     let baseColor = colorScale(freedomIndexPrimary);
     let secondaryColor = colorScaleSecondary(freedomIndexSecondary);
 
-    if(freedomIndexPrimary == -1){
-      baseColor = "#EAEAEA"; //make grey if no data
-    }
-    if(freedomIndexSecondary == -1){
-      secondaryColor = "#EAEAEA";
-    }
-
-    //return 'url(#circlePattern)';
-    return createGradient(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
+    //return 'url(#firegradient)';
+    //return 'url(#stripes-0-0)';
+    //return createGradient(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
+    return createShinyStripe(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
 }
 
 function createGradient(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary){
@@ -71,17 +70,41 @@ function createShinyStripe(baseColor, secondaryColor, freedomIndexPrimary, freed
     let pattern  = document.createElementNS(svgNS,'pattern');
     let id = 'stripes-' + freedomIndexPrimary + '-' + freedomIndexSecondary;
 
-    let w = 7.5;
-    let h = 7.5;
+    let dim = 7.5;
 
     pattern.setAttribute('id', id);
     pattern.setAttribute('patternUnits', 'userSpaceOnUse');
-    pattern.setAttribute('patternTransform', 'rotate(45)');
-    pattern.setAttribute('width', w);
-    pattern.setAttribute('height', h);
+    pattern.setAttribute('width', dim);
+    pattern.setAttribute('height', dim);
 
+    let animTrans  = document.createElementNS(svgNS,'animateTransform');
+    animTrans.setAttribute('attributeName', 'patternTransform');
+    animTrans.setAttribute('type', 'translate');
+    animTrans.setAttribute('from', '0 0');
+    animTrans.setAttribute('to', freedomIndexSecondary*10 + ' ' + freedomIndexSecondary*10);
+    animTrans.setAttribute('dur', '5s');
+    animTrans.setAttribute('repeatCount', 'indefinite');
 
+    pattern.appendChild(animTrans);
+
+    animTrans  = document.createElementNS(svgNS,'animateTransform');
+    animTrans.setAttribute('attributeName', 'patternTransform');
+    animTrans.setAttribute('type', 'rotate');
+    animTrans.setAttribute('from', '45');
+    animTrans.setAttribute('to', '45');
+    animTrans.setAttribute('additive', 'sum');
+    pattern.appendChild(animTrans);
+
+    let line = document.createElementNS(svgNS,'line');
+    line.setAttribute('y2', dim);
+    line.setAttribute('stroke', secondaryColor);
+    line.setAttribute('stroke-width', 3);
+    pattern.appendChild(line);
+
+    let defs = mapSvg.querySelector('defs') ||
+                 mapSvg.insertBefore( document.createElementNS(svgNS,'defs'), svg.firstChild);
+
+    defs.appendChild(pattern);    
   
-  
-  return 'url(#stripes)';
+  return 'url(#' + id +')';
 }
