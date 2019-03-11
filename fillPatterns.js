@@ -1,9 +1,6 @@
 export {generateFillGraphics, clearFillGraphics};
 import {dataSetSecondary, dataSet, colorScale, colorScaleSecondary} from './mapSetup.js';
 
-
-
-
 function clearFillGraphics(){
   let defs = $('#fill-defs');
   defs.empty();
@@ -12,6 +9,9 @@ function generateFillGraphics(countryId, animationType){
 
     let freedomIndexPrimary = dataSet.get(countryId) || -1;
     let freedomIndexSecondary = dataSetSecondary.get(countryId) || -1;
+
+    freedomIndexPrimary = Math.round(freedomIndexPrimary);
+    freedomIndexSecondary = Math.round(freedomIndexSecondary);
 
     let baseColor = colorScale(freedomIndexPrimary);
     let secondaryColor = colorScaleSecondary(freedomIndexSecondary);
@@ -24,7 +24,7 @@ function generateFillGraphics(countryId, animationType){
       secondaryColor = "#EAEAEA";
     }
 
-    
+    //return 'url(#circlePattern)';
     if(animationType == 1) return createShinyStripe(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
     else if (animationType == 2) return createGradient(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
     else if (animationType == 3) return createCirclePattern1(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
@@ -84,6 +84,19 @@ function createShinyStripe(baseColor, secondaryColor, freedomIndexPrimary, freed
     pattern.setAttribute('patternUnits', 'userSpaceOnUse');
     pattern.setAttribute('width', dim);
     pattern.setAttribute('height', dim);
+    
+    let rect  = document.createElementNS(svgNS,'rect');
+    rect.setAttribute('width', dim*4);
+    rect.setAttribute('height', dim*4);
+    rect.setAttribute('style','fill: ' + baseColor);
+
+    pattern.appendChild(rect);   
+
+    let line = document.createElementNS(svgNS,'line');
+    line.setAttribute('y2', dim);
+    line.setAttribute('stroke', secondaryColor);
+    line.setAttribute('stroke-width', 3);
+    pattern.appendChild(line);
 
     let animTrans  = document.createElementNS(svgNS,'animateTransform');
     animTrans.setAttribute('attributeName', 'patternTransform');
@@ -102,12 +115,6 @@ function createShinyStripe(baseColor, secondaryColor, freedomIndexPrimary, freed
     animTrans.setAttribute('to', '45');
     animTrans.setAttribute('additive', 'sum');
     pattern.appendChild(animTrans);
-
-    let line = document.createElementNS(svgNS,'line');
-    line.setAttribute('y2', dim);
-    line.setAttribute('stroke', secondaryColor);
-    line.setAttribute('stroke-width', 3);
-    pattern.appendChild(line);
 
     let defs = mapSvg.querySelector('defs') ||
                  mapSvg.insertBefore( document.createElementNS(svgNS,'defs'), svg.firstChild);
@@ -129,6 +136,13 @@ function createCirclePattern1(baseColor, secondaryColor, freedomIndexPrimary, fr
     pattern.setAttribute('patternUnits', 'userSpaceOnUse');
     pattern.setAttribute('width', dim);
     pattern.setAttribute('height', dim);
+
+    let rect  = document.createElementNS(svgNS,'rect');
+    rect.setAttribute('width', dim*4);
+    rect.setAttribute('height', dim*4);
+    rect.setAttribute('style','fill: ' + baseColor);
+
+    pattern.appendChild(rect);
 
     let circle  = document.createElementNS(svgNS,'circle');
     circle.setAttribute('cx', 2);
@@ -170,6 +184,13 @@ function createCirclePattern2(baseColor, secondaryColor, freedomIndexPrimary, fr
     pattern.setAttribute('patternUnits', 'userSpaceOnUse');
     pattern.setAttribute('width', dim);
     pattern.setAttribute('height', dim);
+
+    let rect  = document.createElementNS(svgNS,'rect');
+    rect.setAttribute('width', dim*4);
+    rect.setAttribute('height', dim*4);
+    rect.setAttribute('style','fill: ' + baseColor);
+
+    pattern.appendChild(rect);
 
     let circle  = document.createElementNS(svgNS,'circle');
     circle.setAttribute('cx', 2);
