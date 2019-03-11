@@ -1,4 +1,4 @@
-export {generateFillGraphics, clearFillGraphics};
+export {generateFillGraphics, clearFillGraphics, generatePatternLegends};
 import {dataSetSecondary, dataSet, colorScale, colorScaleSecondary} from './mapSetup.js';
 
 function clearFillGraphics(){
@@ -29,13 +29,27 @@ function generateFillGraphics(countryId, animationType){
     else if (animationType == 2) return createGradient(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
     else if (animationType == 3) return createCirclePattern1(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
     else if (animationType == 4) return createCirclePattern2(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
+    else if (animationType == 5) return createShinyStripe2(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
     else return 'url(#firegradient)';
+}
+function generatePatternLegends(secondColorIndex, animationType){
+
+  let baseColor = colorScale(5);
+  let secondaryColor = colorScaleSecondary(secondColorIndex);
+
+  //return 'url(#circlePattern)';
+  if(animationType == 1) return createShinyStripe(baseColor, secondaryColor, 5, secondColorIndex);
+  else if (animationType == 2) return createGradient(baseColor, secondaryColor, 5, secondColorIndex);
+  else if (animationType == 3) return createCirclePattern1(baseColor, secondaryColor, 5, secondColorIndex);
+  else if (animationType == 4) return createCirclePattern2(baseColor, secondaryColor, 5, secondColorIndex);
+  else if (animationType == 5) return createShinyStripe2(baseColor, secondaryColor, 5, secondColorIndex);
+  else return 'url(#firegradient)';
 }
 
 function createGradient(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary){
 
     if( freedomIndexSecondary == -1) return baseColor;
-    let mapSvg = ($('svg')[0]);
+    let mapSvg = ($('.map')[0]);
     let svgNS = mapSvg.namespaceURI;
     let grad  = document.createElementNS(svgNS,'linearGradient');
     let id = 'gradient-' + freedomIndexPrimary + '-' + freedomIndexSecondary;
@@ -76,7 +90,7 @@ function createGradient(baseColor, secondaryColor, freedomIndexPrimary, freedomI
 
 function createShinyStripe(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary){
   if( freedomIndexSecondary == -1) return baseColor;
-    let mapSvg = ($('svg')[0]);
+  let mapSvg = ($('.map')[0]);
     let svgNS = mapSvg.namespaceURI;
     let pattern  = document.createElementNS(svgNS,'pattern');
     let id = 'stripes-' + freedomIndexPrimary + '-' + freedomIndexSecondary;
@@ -127,9 +141,64 @@ function createShinyStripe(baseColor, secondaryColor, freedomIndexPrimary, freed
   return 'url(#' + id +')';
 }
 
+
+function createShinyStripe2(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary){
+  if( freedomIndexSecondary == -1) return baseColor;
+  let mapSvg = ($('.map')[0]);
+    let svgNS = mapSvg.namespaceURI;
+    let pattern  = document.createElementNS(svgNS,'pattern');
+    let id = 'stripes-' + freedomIndexPrimary + '-' + freedomIndexSecondary;
+
+    let dim = 7.5;
+
+    pattern.setAttribute('id', id);
+    pattern.setAttribute('patternUnits', 'userSpaceOnUse');
+    pattern.setAttribute('width', dim);
+    pattern.setAttribute('height', dim);
+    
+    let rect  = document.createElementNS(svgNS,'rect');
+    rect.setAttribute('width', dim*4);
+    rect.setAttribute('height', dim*4);
+    rect.setAttribute('style','fill: ' + baseColor);
+
+    pattern.appendChild(rect);   
+
+    let line = document.createElementNS(svgNS,'line');
+    line.setAttribute('y2', dim);
+    line.setAttribute('stroke', secondaryColor);
+    line.setAttribute('stroke-width', freedomIndexSecondary/2);
+    pattern.appendChild(line);
+
+    let animTrans  = document.createElementNS(svgNS,'animateTransform');
+    animTrans.setAttribute('attributeName', 'patternTransform');
+    animTrans.setAttribute('type', 'translate');
+    animTrans.setAttribute('from', '0 0');
+    animTrans.setAttribute('to', 50 + ' ' + 50);
+    animTrans.setAttribute('dur', '5s');
+    animTrans.setAttribute('repeatCount', 'indefinite');
+
+    pattern.appendChild(animTrans);
+
+    animTrans  = document.createElementNS(svgNS,'animateTransform');
+    animTrans.setAttribute('attributeName', 'patternTransform');
+    animTrans.setAttribute('type', 'rotate');
+    animTrans.setAttribute('from', '45');
+    animTrans.setAttribute('to', '45');
+    animTrans.setAttribute('additive', 'sum');
+    pattern.appendChild(animTrans);
+
+    let defs = mapSvg.querySelector('defs') ||
+                 mapSvg.insertBefore( document.createElementNS(svgNS,'defs'), svg.firstChild);
+
+    defs.appendChild(pattern);    
+  
+  return 'url(#' + id +')';
+}
+
+
 function createCirclePattern1(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary){
   if( freedomIndexSecondary == -1) return baseColor;
-  let mapSvg = ($('svg')[0]);
+  let mapSvg = ($('.map')[0]);
     let svgNS = mapSvg.namespaceURI;
     let pattern  = document.createElementNS(svgNS,'pattern');
     let id = 'circles-' + freedomIndexPrimary + '-' + freedomIndexSecondary;
@@ -178,7 +247,7 @@ function createCirclePattern1(baseColor, secondaryColor, freedomIndexPrimary, fr
 
 function createCirclePattern2(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary){
   if( freedomIndexSecondary == -1) return baseColor;
-  let mapSvg = ($('svg')[0]);
+  let mapSvg = ($('.map')[0]);
     let svgNS = mapSvg.namespaceURI;
     let pattern  = document.createElementNS(svgNS,'pattern');
     let id = 'circles-' + freedomIndexPrimary + '-' + freedomIndexSecondary;
