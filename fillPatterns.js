@@ -24,12 +24,13 @@ function generateFillGraphics(countryId, animationType){
       secondaryColor = "#EAEAEA";
     }
 
-    //return 'url(#circlePattern)';
+    //return 'url(#blinkPattern)';
     if(animationType == 1) return createShinyStripe(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
     else if (animationType == 2) return createGradient(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
     else if (animationType == 3) return createCirclePattern1(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
     else if (animationType == 4) return createCirclePattern2(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
     else if (animationType == 5) return createShinyStripe2(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
+    else if (animationType == 6) return createBlinkingPattern(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);   
     else return 'url(#firegradient)';
 }
 function generatePatternLegends(secondColorIndex, animationType){
@@ -43,6 +44,7 @@ function generatePatternLegends(secondColorIndex, animationType){
   else if (animationType == 3) return createCirclePattern1(baseColor, secondaryColor, 5, secondColorIndex);
   else if (animationType == 4) return createCirclePattern2(baseColor, secondaryColor, 5, secondColorIndex);
   else if (animationType == 5) return createShinyStripe2(baseColor, secondaryColor, 5, secondColorIndex);
+  else if (animationType == 6) return createBlinkingPattern(baseColor, secondaryColor, 5, secondColorIndex);
   else return 'url(#firegradient)';
 }
 
@@ -283,6 +285,56 @@ function createCirclePattern2(baseColor, secondaryColor, freedomIndexPrimary, fr
     animate.setAttribute('repeatCount', 'indefinite');
 
     circle.appendChild(animate);
+
+
+    let defs = mapSvg.querySelector('defs') ||
+                 mapSvg.insertBefore( document.createElementNS(svgNS,'defs'), svg.firstChild);
+
+    defs.appendChild(pattern);   
+  return 'url(#' + id + ')'; 
+}
+
+function createBlinkingPattern(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary){
+  if( freedomIndexSecondary == -1) return baseColor;
+  let mapSvg = ($('.map')[0]);
+    let svgNS = mapSvg.namespaceURI;
+    let pattern  = document.createElementNS(svgNS,'pattern');
+    let id = 'blinking-' + freedomIndexPrimary + '-' + freedomIndexSecondary;
+
+    let dim = 5;
+
+    pattern.setAttribute('id', id);
+    pattern.setAttribute('patternUnits', 'userSpaceOnUse');
+    pattern.setAttribute('width', dim);
+    pattern.setAttribute('height', dim);
+
+
+    let rectangle  = document.createElementNS(svgNS,'rect');
+    rectangle.setAttribute('width', dim*4);
+    rectangle.setAttribute('height', dim*4);
+    rectangle.setAttribute('style', 'fill: '+ baseColor);
+
+    pattern.appendChild(rectangle);
+
+    let rectangle2  = document.createElementNS(svgNS,'rect');
+    rectangle2.setAttribute('width', dim*4);
+    rectangle2.setAttribute('height', dim*4);
+    rectangle2.setAttribute('style', 'fill: purple');
+
+    pattern.appendChild(rectangle2);
+
+    let animate  = document.createElementNS(svgNS,'animate');
+
+    animate.setAttribute('attributeName', 'opacity');
+    animate.setAttribute('from', '0');
+    animate.setAttribute('to', '1');
+    animate.setAttribute('values', '0;1;0');
+    animate.setAttribute('keyTimes', '0;0.5;1');
+    animate.setAttribute('dur', 20/freedomIndexSecondary + 's');
+    animate.setAttribute('repeatCount', 'indefinite');
+
+    rectangle2.appendChild(animate);
+   // rectangle2.appendChild(animate2);
 
 
     let defs = mapSvg.querySelector('defs') ||
