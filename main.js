@@ -9,6 +9,7 @@ import { year, displayYear } from './Timeline.js';
 let mappedTitles;
 let totFreedomSet = d3.map();
 let totFreedomID = "hf_rank";
+let animationType = 3;
 
 //On application start
 InitalLoad(primaryID, secondaryID, totFreedomID); //has default value from ButtonListSetup.js
@@ -87,6 +88,8 @@ function ready(error, jsonData) {
 
     if (error) throw error;
 
+    console.log('drwing with: ' + animationType);
+
     // Draw the map
     svg.append("g")
         .attr("class", "countries")
@@ -95,7 +98,7 @@ function ready(error, jsonData) {
         .enter().append("path")
         .attr("fill", function (d) {
             //Fill map with color
-            return generateFillGraphics(d.id);
+            return generateFillGraphics(d.id, animationType);
         })
         .attr("d", path)
         .on("mouseover", function (d) { //show facts about country on hover
@@ -132,3 +135,9 @@ function displayFreedomIndex(data) {
     else return parseFloat(totFreedomSet.get(data.id).toFixed(2));
 }
 
+
+$( ".anim" ).click(function(e) {
+    let id = e.target.id;
+    animationType = id[4]; // get id number - ex) anim3 -> 3
+    ReloadMap(primaryID, secondaryID, year);
+});
