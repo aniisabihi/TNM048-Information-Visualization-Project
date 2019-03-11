@@ -32,7 +32,7 @@ function InitalLoad(primaryID, secondaryID, totFreedomID) {
         - defer adds things to the queue
         - results from the requests are returned in order they were requested */
     d3.queue()
-        .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
+        .defer(d3.json, "https://enjalot.github.io/wwsd/data/world/world-110m.geojson")
         .defer(d3.csv, year, function (d) {
 
             totFreedomSet.set(d.ISO_code, +d[totFreedomID]);
