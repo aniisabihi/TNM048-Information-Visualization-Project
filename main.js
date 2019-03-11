@@ -119,7 +119,7 @@ function ready(error, jsonData) {
         });
 
     //Create legend
-    drawCustomLegend(primaryTitle, secondaryTitle);
+    drawCustomLegend(primaryTitle, secondaryTitle, animationType);
 }
 
 //Rounds index to 2 decimals and handles unavailable data on display
