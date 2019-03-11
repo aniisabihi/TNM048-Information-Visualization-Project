@@ -75,7 +75,7 @@ function ReloadMap(primaryID, secondaryID, year) {
 
     //reload data
     d3.queue()
-        .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
+        .defer(d3.json, "https://enjalot.github.io/wwsd/data/world/world-110m.geojson")
         .defer(d3.csv, year, function (d) {
             dataSet.set(d.ISO_code, +d[primaryID]);
             dataSetSecondary.set(d.ISO_code, +d[secondaryID]);
