@@ -155,11 +155,10 @@ function createCirclePattern1(baseColor, secondaryColor, freedomIndexPrimary, fr
     let animate  = document.createElementNS(svgNS,'animate');
     animate.setAttribute('attributeName', 'r');
     animate.setAttribute('calcmode', 'spline');
-    animate.setAttribute('keySplines', '0.3 0 0.7 1;0.3 0 0.7 1');
-    animate.setAttribute('to', '45');
-    animate.setAttribute('values', '1;5;1');
-    animate.setAttribute('keyTimes', '0;0.5;1');
-    animate.setAttribute('dur', '5s');
+    animate.setAttribute('keySplines', '0.3 0 0.7 1; 0.3 0 0.7 1');
+    animate.setAttribute('values', '0;7;0');
+    animate.setAttribute('keyTimes', '0;0.4;1.0');
+    animate.setAttribute('dur', '7s');
     animate.setAttribute('repeatCount', 'indefinite');
 
     circle.appendChild(animate);
