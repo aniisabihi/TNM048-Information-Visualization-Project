@@ -328,9 +328,7 @@ function createBlinkingPattern(baseColor, secondaryColor, freedomIndexPrimary, f
     animate.setAttribute('attributeName', 'opacity');
     animate.setAttribute('from', '0');
     animate.setAttribute('to', '1');
-    animate.setAttribute('values', '0;1;0');
-    animate.setAttribute('keyTimes', '0;0.5;1');
-    animate.setAttribute('dur', 20/freedomIndexSecondary + 's');
+    animate.setAttribute('dur', 10/freedomIndexSecondary + 's');
     animate.setAttribute('repeatCount', 'indefinite');
 
     rectangle2.appendChild(animate);
