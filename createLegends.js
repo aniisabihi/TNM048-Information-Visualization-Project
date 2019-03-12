@@ -5,7 +5,7 @@ export function drawCustomLegend(primaryOption, secondaryOption, animType){
 
     $("#map-legend-primary").empty();
     $("#map-legend-primary").append('<div class="legend-title">'+
-                                        primaryOption +'</div>').css({color:'plum'});
+                                        primaryOption +'</div>').css({color:'green'});
     for (var i=0;i<labels.length;i++){
         $("#map-legend-primary").append('<div class="legend-label"></div>');
         let tempLabel = $("#map-legend-primary .legend-label:last-child");
@@ -17,7 +17,7 @@ export function drawCustomLegend(primaryOption, secondaryOption, animType){
 
     $("#map-legend-secondary").empty();
     $("#map-legend-secondary").append('<div class="legend-title">'+
-                                        secondaryOption +'</div>').css('color', 'palevioletred');
+                                        secondaryOption +'</div>').css('color', 'plum');
     for (var i=0;i<labels.length;i++){    
         $("#map-legend-secondary").append('<div class="legend-label"></div>');
         let tempLabel = $("#map-legend-secondary .legend-label:last-child");

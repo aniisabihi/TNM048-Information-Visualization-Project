@@ -35,10 +35,10 @@ function buttonClick(){
    
     //select clicked button
     if(d3.select(this).attr("class") == "button1"){
-        d3.select(this).style("background-color", "plum");
+        d3.select(this).style("background-color", "green");
     }
     else{
-        d3.select(this).style("background-color", "palevioletred");
+        d3.select(this).style("background-color", "plum");
     }
     ReloadMap(primaryID, secondaryID, year);
 }
