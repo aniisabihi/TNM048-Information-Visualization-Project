@@ -52,8 +52,6 @@ function InitalLoad(primaryID, secondaryID, totFreedomID) {
                     }
                 });
 
-                console.log("buttonIDs: ", buttonIDs);
-
                 //Zip the IDs and buttonTitles
                 let mappedTitlesArray = buttonTitles.map(function (ID, i) {
                     return [ID, buttonIDs[i]];
@@ -87,8 +85,6 @@ function ReloadMap(primaryID, secondaryID, year) {
 function ready(error, jsonData) {
 
     if (error) throw error;
-
-    console.log('drwing with: ' + animationType);
 
     // Draw the map
     svg.append("g")
