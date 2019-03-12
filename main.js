@@ -139,7 +139,7 @@ function displayFreedomIndex(data) {
 $( ".anim" ).click(function(e) {
     let id = e.target.id;
     let i;
-    for (i = 1; i < 7; i++) {
+    for (i = 1; i <=9; i++) {
         document.getElementById("anim" + i).disabled = false;
     }
     document.getElementById(id).disabled = true;

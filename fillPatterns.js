@@ -32,6 +32,7 @@ function generateFillGraphics(countryId, animationType){
     else if (animationType == 6) return createCirclePattern2(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
     else if (animationType == 7) return createBlinkingPattern(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
     else if (animationType == 8) return createGradient(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
+    else if (animationType == 9) return createGradient2(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
     else return 'url(#firegradient)';
 }
 function generatePatternLegends(secondColorIndex, animationType){
@@ -48,6 +49,7 @@ function generatePatternLegends(secondColorIndex, animationType){
   else if (animationType == 6) return createCirclePattern2(baseColor, secondaryColor, 5, secondColorIndex);
   else if (animationType == 7) return createBlinkingPattern(baseColor, secondaryColor, 5, secondColorIndex);
   else if (animationType == 8) return createGradient(baseColor, secondaryColor, 5, secondColorIndex);
+  else if (animationType == 9) return createGradient2(baseColor, secondaryColor, 5, secondColorIndex);
   else return 'url(#firegradient)';
 }
 
@@ -65,7 +67,7 @@ function createGradient(baseColor, secondaryColor, freedomIndexPrimary, freedomI
 
     let stops = [
         {offset:'0%', 'stop-color': baseColor},
-        {offset:'100%','stop-color': secondaryColor}
+        {offset:'50%','stop-color': secondaryColor}
       ]
     for (var i=0;i<stops.length;i++){
       let attrs = stops[i];
@@ -76,8 +78,49 @@ function createGradient(baseColor, secondaryColor, freedomIndexPrimary, freedomI
       grad.appendChild(stop);
     }
 
-    let animAttrs = {   attributeName: 'x1', dur: '800ms' /*'1000ms'*/, 
-                        from: freedomIndexSecondary*10 + '%', to: '0%', repeatCount: 'indefinite' }; 
+    let animAttrs = {   attributeName: 'x1', dur: '2000ms' /*'1000ms'*/, 
+                        from: '100%', to: '0%', repeatCount: 'indefinite' }; 
+
+    let anim = document.createElementNS(svgNS,'animate');
+    for (var attr in animAttrs){
+        if (animAttrs.hasOwnProperty(attr)) anim.setAttribute(attr,animAttrs[attr]);
+      }
+    grad.appendChild(anim);
+    
+
+    let defs = mapSvg.querySelector('defs') ||
+                 mapSvg.insertBefore( document.createElementNS(svgNS,'defs'), svg.firstChild);
+
+    defs.appendChild(grad);
+    return 'url(#' + id + ')'; 
+  }
+  function createGradient2(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary){
+
+    if( freedomIndexSecondary == -1) return baseColor;
+    let mapSvg = ($('.map')[0]);
+    let svgNS = mapSvg.namespaceURI;
+    let grad  = document.createElementNS(svgNS,'linearGradient');
+    let id = 'gradient-' + freedomIndexPrimary + '-' + freedomIndexSecondary;
+
+    //kolla, om id finns, skapa inte nya element!
+    grad.setAttribute('id',id);
+    grad.setAttribute('gradientTransform', 'rotate(90)');  
+
+    let stops = [
+        {offset:'0%', 'stop-color': baseColor},
+        {offset:'50%','stop-color': 'plum'}
+      ]
+    for (var i=0;i<stops.length;i++){
+      let attrs = stops[i];
+      let stop = document.createElementNS(svgNS,'stop');
+      for (var attr in attrs){
+        if (attrs.hasOwnProperty(attr)) stop.setAttribute(attr,attrs[attr]);
+      }
+      grad.appendChild(stop);
+    }
+
+    let animAttrs = {   attributeName: 'x1', dur: '2000ms' /*'1000ms'*/, 
+                        from:  '0%', to: (100 - freedomIndexSecondary*10) + '%', repeatCount: 'indefinite' }; 
 
     let anim = document.createElementNS(svgNS,'animate');
     for (var attr in animAttrs){
