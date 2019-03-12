@@ -138,6 +138,11 @@ function displayFreedomIndex(data) {
 
 $( ".anim" ).click(function(e) {
     let id = e.target.id;
+    let i;
+    for (i = 1; i < 7; i++) {
+        document.getElementById("anim" + i).disabled = false;
+    }
+    document.getElementById(id).disabled = true;
     animationType = id[4]; // get id number - ex) anim3 -> 3
     ReloadMap(primaryID, secondaryID, year);
 });
