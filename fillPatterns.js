@@ -16,7 +16,6 @@ function generateFillGraphics(countryId, animationType){
     let baseColor = colorScale(freedomIndexPrimary);
     let secondaryColor = colorScaleSecondary(freedomIndexSecondary);
 
-
     if(freedomIndexPrimary == -1){
       baseColor = "#EAEAEA"; //make grey if no data
     }
@@ -26,11 +25,13 @@ function generateFillGraphics(countryId, animationType){
 
     //return 'url(#blinkPattern)';
     if(animationType == 1) return createShinyStripe(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
-    else if (animationType == 2) return createGradient(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
-    else if (animationType == 3) return createCirclePattern1(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
-    else if (animationType == 4) return createCirclePattern2(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
-    else if (animationType == 5) return createShinyStripe2(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
-    else if (animationType == 6) return createBlinkingPattern(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);   
+    else if (animationType == 2) return createShinyStripe2(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
+    else if (animationType == 3) return createShinyStripe3(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
+    else if (animationType == 4) return createShinyStripe4(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
+    else if (animationType == 5) return createCirclePattern1(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
+    else if (animationType == 6) return createCirclePattern2(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
+    else if (animationType == 7) return createBlinkingPattern(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
+    else if (animationType == 8) return createGradient(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary);
     else return 'url(#firegradient)';
 }
 function generatePatternLegends(secondColorIndex, animationType){
@@ -40,11 +41,13 @@ function generatePatternLegends(secondColorIndex, animationType){
 
   //return 'url(#circlePattern)';
   if(animationType == 1) return createShinyStripe(baseColor, secondaryColor, 5, secondColorIndex);
-  else if (animationType == 2) return createGradient(baseColor, secondaryColor, 5, secondColorIndex);
-  else if (animationType == 3) return createCirclePattern1(baseColor, secondaryColor, 5, secondColorIndex);
-  else if (animationType == 4) return createCirclePattern2(baseColor, secondaryColor, 5, secondColorIndex);
-  else if (animationType == 5) return createShinyStripe2(baseColor, secondaryColor, 5, secondColorIndex);
-  else if (animationType == 6) return createBlinkingPattern(baseColor, secondaryColor, 5, secondColorIndex);
+  else if (animationType == 2) return createShinyStripe2(baseColor, secondaryColor, 5, secondColorIndex);
+  else if (animationType == 3) return createShinyStripe3(baseColor, secondaryColor, 5, secondColorIndex);
+  else if (animationType == 4) return createShinyStripe4(baseColor, secondaryColor, 5, secondColorIndex);
+  else if (animationType == 5) return createCirclePattern1(baseColor, secondaryColor, 5, secondColorIndex);
+  else if (animationType == 6) return createCirclePattern2(baseColor, secondaryColor, 5, secondColorIndex);
+  else if (animationType == 7) return createBlinkingPattern(baseColor, secondaryColor, 5, secondColorIndex);
+  else if (animationType == 8) return createGradient(baseColor, secondaryColor, 5, secondColorIndex);
   else return 'url(#firegradient)';
 }
 
@@ -169,6 +172,113 @@ function createShinyStripe2(baseColor, secondaryColor, freedomIndexPrimary, free
     line.setAttribute('y2', dim);
     line.setAttribute('stroke', secondaryColor);
     line.setAttribute('stroke-width', freedomIndexSecondary/2);
+    pattern.appendChild(line);
+
+    let animTrans  = document.createElementNS(svgNS,'animateTransform');
+    animTrans.setAttribute('attributeName', 'patternTransform');
+    animTrans.setAttribute('type', 'translate');
+    animTrans.setAttribute('from', '0 0');
+    animTrans.setAttribute('to', 50 + ' ' + 50);
+    animTrans.setAttribute('dur', '5s');
+    animTrans.setAttribute('repeatCount', 'indefinite');
+
+    pattern.appendChild(animTrans);
+
+    animTrans  = document.createElementNS(svgNS,'animateTransform');
+    animTrans.setAttribute('attributeName', 'patternTransform');
+    animTrans.setAttribute('type', 'rotate');
+    animTrans.setAttribute('from', '45');
+    animTrans.setAttribute('to', '45');
+    animTrans.setAttribute('additive', 'sum');
+    pattern.appendChild(animTrans);
+
+    let defs = mapSvg.querySelector('defs') ||
+                 mapSvg.insertBefore( document.createElementNS(svgNS,'defs'), svg.firstChild);
+
+    defs.appendChild(pattern);    
+  
+  return 'url(#' + id +')';
+}
+
+function createShinyStripe3(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary){
+  if( freedomIndexSecondary == -1) return baseColor;
+  let mapSvg = ($('.map')[0]);
+    let svgNS = mapSvg.namespaceURI;
+    let pattern  = document.createElementNS(svgNS,'pattern');
+    let id = 'stripes-' + freedomIndexPrimary + '-' + freedomIndexSecondary;
+
+    let dim = 7.5;
+
+    pattern.setAttribute('id', id);
+    pattern.setAttribute('patternUnits', 'userSpaceOnUse');
+    pattern.setAttribute('width', dim);
+    pattern.setAttribute('height', dim);
+    
+    let rect  = document.createElementNS(svgNS,'rect');
+    rect.setAttribute('width', dim*4);
+    rect.setAttribute('height', dim*4);
+    rect.setAttribute('style','fill: ' + baseColor);
+
+    pattern.appendChild(rect);   
+
+    let line = document.createElementNS(svgNS,'line');
+    line.setAttribute('y2', dim);
+    line.setAttribute('stroke', 'plum');
+    line.setAttribute('stroke-width', 3);
+    pattern.appendChild(line);
+
+    let animTrans  = document.createElementNS(svgNS,'animateTransform');
+    animTrans.setAttribute('attributeName', 'patternTransform');
+    animTrans.setAttribute('type', 'translate');
+    animTrans.setAttribute('from', '0 0');
+    animTrans.setAttribute('to', freedomIndexSecondary*10 + ' ' + freedomIndexSecondary*10);
+    animTrans.setAttribute('dur', '5s');
+    animTrans.setAttribute('repeatCount', 'indefinite');
+
+    pattern.appendChild(animTrans);
+
+    animTrans  = document.createElementNS(svgNS,'animateTransform');
+    animTrans.setAttribute('attributeName', 'patternTransform');
+    animTrans.setAttribute('type', 'rotate');
+    animTrans.setAttribute('from', '45');
+    animTrans.setAttribute('to', '45');
+    animTrans.setAttribute('additive', 'sum');
+    pattern.appendChild(animTrans);
+
+    let defs = mapSvg.querySelector('defs') ||
+                 mapSvg.insertBefore( document.createElementNS(svgNS,'defs'), svg.firstChild);
+
+    defs.appendChild(pattern);    
+  
+  return 'url(#' + id +')';
+}
+
+
+function createShinyStripe4(baseColor, secondaryColor, freedomIndexPrimary, freedomIndexSecondary){
+  if( freedomIndexSecondary == -1) return baseColor;
+  let mapSvg = ($('.map')[0]);
+    let svgNS = mapSvg.namespaceURI;
+    let pattern  = document.createElementNS(svgNS,'pattern');
+    let id = 'stripes-' + freedomIndexPrimary + '-' + freedomIndexSecondary;
+
+    let dim = 7.5;
+
+    pattern.setAttribute('id', id);
+    pattern.setAttribute('patternUnits', 'userSpaceOnUse');
+    pattern.setAttribute('width', dim);
+    pattern.setAttribute('height', dim);
+    
+    let rect  = document.createElementNS(svgNS,'rect');
+    rect.setAttribute('width', dim*4);
+    rect.setAttribute('height', dim*4);
+    rect.setAttribute('style','fill: ' + baseColor);
+
+    pattern.appendChild(rect);   
+
+    let line = document.createElementNS(svgNS,'line');
+    line.setAttribute('y2', dim);
+    line.setAttribute('stroke', 'plum');
+    line.setAttribute('stroke-width', freedomIndexSecondary);
     pattern.appendChild(line);
 
     let animTrans  = document.createElementNS(svgNS,'animateTransform');

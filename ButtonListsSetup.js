@@ -8,10 +8,10 @@ let listButton = d3.select("#UI2")
 let listButton2 = d3.select("#UI3")
 
 //Default values, used on InitialLoad
-let primaryTitle = "Disappearances";
-let secondaryTitle = "Civil Justice";
-let primaryID = "pf_ss_disappearances_disap";
-let secondaryID = "pf_rol_civil";
+let primaryTitle = "State control over Internet access";
+let secondaryTitle = "Political pressures and controls on media content";
+let primaryID = "pf_expression_internet";
+let secondaryID = "pf_expression_control";
 
 function buttonClick(){
 
