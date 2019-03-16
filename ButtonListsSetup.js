@@ -35,7 +35,7 @@ function buttonClick(){
    
     //select clicked button
     if(d3.select(this).attr("class") == "button1"){
-        d3.select(this).style("background-color", "green");
+        d3.select(this).style("background-color", "lightseagreen");
     }
     else{
         d3.select(this).style("background-color", "plum");

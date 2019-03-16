@@ -22,6 +22,8 @@ var tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
+    
+
 //Draw map from data on start, create <buttonTitles,buttonIDS> Map
 function InitalLoad(primaryID, secondaryID, totFreedomID) {
 

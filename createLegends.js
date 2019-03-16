@@ -5,7 +5,7 @@ export function drawCustomLegend(primaryOption, secondaryOption, animType){
 
     $("#map-legend-primary").empty();
     $("#map-legend-primary").append('<div class="legend-title">'+
-                                        primaryOption +'</div>').css({color:'green'});
+                                        primaryOption +'</div>').css({color:'lightseagreen'});
     for (var i=0;i<labels.length;i++){
         $("#map-legend-primary").append('<div class="legend-label"></div>');
         let tempLabel = $("#map-legend-primary .legend-label:last-child");
@@ -23,7 +23,6 @@ export function drawCustomLegend(primaryOption, secondaryOption, animType){
         let tempLabel = $("#map-legend-secondary .legend-label:last-child");
         //tempLabel.append('<svg class="legend-label-color" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"></svg>');
 
-
         let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute('class',"legend-label-color" );
 
@@ -33,7 +32,6 @@ export function drawCustomLegend(primaryOption, secondaryOption, animType){
         rect.setAttribute('style','fill: ' + generatePatternLegends(i*2, animType));
     
         svg.appendChild(rect);
-
         tempLabel.append(svg);
         
         tempLabel.append('<div class="legend-label-text"></div>');

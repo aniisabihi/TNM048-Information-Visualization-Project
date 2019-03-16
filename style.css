@@ -3,16 +3,45 @@
 html, body {
     height:100%;
 }
-h3, h5{
+h3{
     color: lightseagreen;
 }
 h5{
     text-align: left;
+    color: #000;
 }
-.space{
-    padding: 1em;
+
+
+p,h3,h5, #animationtitle {
+    font-family: 'Lato', sans-serif;
+}
+
+/* TIMELINE AND ANIMATIONLIST */
+
+#animationtitle{
+    text-align: center;
+    color: #000;
+}
+
+
+.animationlist{
+    padding-top:3em;
+    padding-left:40px;
+    padding-right:40px;
+}
+
+
+.timeline{
+    padding-top:3em;
     margin: 0;
 }
+
+.anim, .years{  /*single buttons*/
+    margin: 5px;
+    font-family: 'Lato', sans-serif;
+    width:100px;
+}
+
 
 /* INFO ICON */
 .material-icons{
@@ -28,14 +57,7 @@ h5{
 }
 
 /* WORLD MAP */
-#UI1{
-    margin-top: 50px;
-    margin-bottom: 50px;
-}
-.mapsize{
-    width: 100%;
-    margin-top: -25px;
-}
+
 .countries {
     fill: none;
     stroke: #fff;
@@ -51,26 +73,29 @@ path:hover{
 /* LEGENDS */
 .legendThreshold {
     font-size: 12px;
-    font-family: sans-serif;
 }
+
 .map-legend-container{
-    position: absolute;
+
     display: flex;
     flex-direction: column;
     min-width: 270px;
-    max-width: 310px;
+    max-width: 310;
     padding: 15px;
+
 }
 .map-legend{
     min-width: 40px;
     min-height: 120px;
-    margin: 25px;
     flex: auto;
     flex-direction: column;
+    margin:25px 25px 25px 50px;
 }
+
 .legend-title{
     text-align: left;
     font-size: 1rem;
+    font-family: 'Lato', sans-serif;
 }
 .legend-label{
     display:flex;
@@ -136,18 +161,6 @@ path:hover{
     width: 50%;
 }
 
-#animation-toggle{
-    background: pink;
-    position: absolute;
-    float: right;
-    right: 25px;
-    top: 30px;
-}
-
-/* TIMELINE */
-.w3-button{
-    margin-left: 40px;
-}
 
 
 /* TOOLTIP */
