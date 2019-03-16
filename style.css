@@ -33,7 +33,7 @@ p,h3,h5, #animationtitle {
 
 .timeline{
     padding-top:3em;
-    margin: 0;
+    margin-bottom: 40px;
 }
 
 .anim, .years{  /*single buttons*/
