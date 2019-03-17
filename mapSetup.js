@@ -36,13 +36,13 @@ function resize() { //responsiveness on window change
 
     let width = +d3.select('#UI1').style('width').slice(0, -2);
     let height = +d3.select('#UI1').style('height').slice(0, -2);
-    width = width*1.1;
-    height = height*1.1;
+    width = width*1.2;
+    height = height*1.2;
   
 
    projection
    .scale(width / 2 / Math.PI)
-   	.translate([width / 2.2, height / 2]);
+   	.translate([width / 2.2, height / 2.6]);
     
    d3.select("svg").attr("width",width).attr("height",height);
    d3.selectAll("path").attr('d', path);

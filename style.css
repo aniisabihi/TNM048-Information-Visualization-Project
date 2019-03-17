@@ -28,11 +28,11 @@ p,h3,h5, #animationtitle {
     padding-top:3em;
     padding-left:40px;
     padding-right:40px;
+    padding-bottom: 3em;
 }
 
 
 .timeline{
-    padding-top:3em;
     margin-bottom: 40px;
 }
 
