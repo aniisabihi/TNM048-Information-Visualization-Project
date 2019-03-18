@@ -42,7 +42,7 @@ function resize() { //responsiveness on window change
 
    projection
    .scale(width / 2 / Math.PI)
-   	.translate([width / 2.2, height / 2.6]);
+   	.translate([width / 2.2, height / 2.2]);
     
    d3.select("svg").attr("width",width).attr("height",height);
    d3.selectAll("path").attr('d', path);
